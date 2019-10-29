@@ -1,47 +1,102 @@
-.col-3{
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+.col-3 {
     float: left;
     width: 33.3%;
     height: 100%;
-    vertical-align: middle;
+    align-self: center;
+    align-content: center;
+    display: flex;
 }
 
-.row{
-    vertical-align: middle;
-    align-content: center;
-}:after{
-    content: "";
-    display: table;
-     clear: both;
- }
+.row {
+    display: flex;
+    align-content: space-around;
+    align-self: center;
+}
 
- .logo{
-     float: left;
-     width: 5%;
-     margin: 1%;
- }
 
- .navbar{
-     vertical-align: baseline;
-     float: left;
-     width: 90%;
-     height: 50%;
- }:after{
-      content: "";
-      display: table;
-      clear: both;
-  }
+.logo {
+    float: left;
+    width: 5%;
+    margin: 1%;
+    display: flex;
+}
 
-  .footer{
-      width: 100%;
-      margin: auto;
-      padding: 5%;
-      vertical-align: bottom;
-  }
+.navbar {
+    margin-bottom: 1%;
+    margin-top: 1%;
+    float: right;
+    width: 90%;
+    height: 98%;
+    display: flex;
+    align-self: center;
+}
 
-  .header{
-      align-content: center;
-      width: 100%;
-      margin: auto;
-      padding: 5%;
-      vertical-align: middle;
-  }
+
+footer {
+    width: 95%;
+    height: 10%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #19535f;
+}
+
+header {
+    width: 95%;
+    height: 10%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #19535f;
+}
+
+.button {
+    margin: auto;
+    background-color: #0b7a75;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.navbar .search-container {
+    float: right;
+    padding: 0;
+    margin-right: 0;
+    align-self: center;
+    align-items: center;
+}
+
+.navbar input[type=text] {
+    padding: 6px;
+    margin-top: 0;
+    margin-right: 0;
+    font-size: 17px;
+    border: none;
+}
+
+.navbar .search-container button {
+    float: right;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 9px;
+    height: 100%;
+    margin-top: 0;
+    border: none;
+    background-color: #0b7a75;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 16px;
+    color: white;
+}
+
+.navbar .search-container button:hover {
+    background-color: #0a7974;
+
+}
