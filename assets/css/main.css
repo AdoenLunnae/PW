@@ -25,7 +25,7 @@ body {
     display: flex;
 }
 
-.navbar {
+nav {
     margin-bottom: 1%;
     margin-top: 1%;
     float: right;
@@ -64,7 +64,7 @@ header {
     font-size: 16px;
 }
 
-.navbar .search-container {
+nav .search-container {
     float: right;
     padding: 0;
     margin-right: 0;
@@ -72,7 +72,7 @@ header {
     align-items: center;
 }
 
-.navbar input[type=text] {
+nav input[type=text] {
     padding: 6px;
     margin-top: 0;
     margin-right: 0;
@@ -80,7 +80,7 @@ header {
     border: none;
 }
 
-.navbar .search-container button {
+nav .search-container button {
     float: right;
     padding-right: 10px;
     padding-top: 8px;
@@ -96,7 +96,7 @@ header {
     color: white;
 }
 
-.navbar .search-container button:hover {
+nav .search-container button:hover {
     background-color: #0a7974;
 
 }
