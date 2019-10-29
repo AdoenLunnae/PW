@@ -1,0 +1,47 @@
+.col-3{
+    float: left;
+    width: 33.3%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.row{
+    vertical-align: middle;
+    align-content: center;
+}:after{
+    content: "";
+    display: table;
+     clear: both;
+ }
+
+ .logo{
+     float: left;
+     width: 5%;
+     margin: 1%;
+ }
+
+ .navbar{
+     vertical-align: baseline;
+     float: left;
+     width: 90%;
+     height: 50%;
+ }:after{
+      content: "";
+      display: table;
+      clear: both;
+  }
+
+  .footer{
+      width: 100%;
+      margin: auto;
+      padding: 5%;
+      vertical-align: bottom;
+  }
+
+  .header{
+      align-content: center;
+      width: 100%;
+      margin: auto;
+      padding: 5%;
+      vertical-align: middle;
+  }
