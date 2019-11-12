@@ -2,6 +2,12 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
+section {
+    width: 95%;
+    background-color: #0a7974;
+    margin: 0 auto 0 auto;
+    padding: 10px;
+}
 .col-3 {
     float: left;
     width: 33.3%;
@@ -39,15 +45,15 @@ nav {
 footer {
     width: 95%;
     height: 10%;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 0 auto 10px auto;
+    padding: 30px 10px;
     background-color: #19535f;
 }
 
 header {
     width: 95%;
     height: 10%;
-    margin: 10px auto;
+    margin: 10px auto 0 auto;
     padding: 10px;
     background-color: #19535f;
 }
