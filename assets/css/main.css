@@ -206,8 +206,6 @@ header .row {
 	height: 100%;
 }
 .logo {
-	border-radius: 9999px;
-	overflow: hidden;
 	float: left;
 	width: 8vh;
 	height: 8vh;
@@ -216,6 +214,10 @@ header .row {
 	align-self: center;
 	background-image: url("../images/logo.png");
 	background-size: cover;
+}
+
+.logo:hover{
+	cursor: pointer;
 }
 
 .floating-image {
