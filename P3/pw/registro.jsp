@@ -1,12 +1,10 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 <head>
-    <title>Registro</title>
-    <meta name="viewport"
-          content="width=device-width, user-escalable=no, initial-scale=1, maximum-scale=1. minimum-scale=1 ">
-
-
-    <link rel="stylesheet" href="./css/main.css">
+    <jsp:include page="/include/common-head.jsp">
+			<jsp:param name="title" value="Registrarme"/>
+	   </jsp:include>
+	   	
     <script src="./js/passwordValidation.js"></script>
 
 </head>
@@ -15,7 +13,7 @@
 <div class="contentaux">
 <form class="center w-3/4" action="registerAttempt" method="POST">
     <div class="conjunto-registro" id="conj-reg">
-        <div class="registro" id="registro">
+        <div class="registro">
             <div class="user-img">
                 <img src="./img/user.png" alt="avatar"/>
             </div>
@@ -56,7 +54,7 @@
                 <input type="button" onclick="window.location.href = './login.html'" value="Volver al login"/>
             </div>
         </div>
-		</div>
-    </div>
+	</div>
 </form>
+</div>
 </body>
