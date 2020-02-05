@@ -2,3 +2,7 @@ work/
 .tomcatplugin
 .project
 .cvsignore
+apache-tomcat-8.5.50/
+pw.war
+.classpath
+classes/
