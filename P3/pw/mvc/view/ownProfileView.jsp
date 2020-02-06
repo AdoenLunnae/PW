@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<html>
+<jsp:useBean id="profile" class="es.uco.pw.display.beans.ProfileBean" scope="session"/>
 <head>
 	<jsp:include page="/include/common-head.jsp">
-		<jsp:param value="Mi Perfil" name="title"/>
+		<jsp:param name="title" value="<%= profile.getName() %>" />
 	</jsp:include>
-	<link rel="stylesheet" href="/pw/css/popups.css"> 
+	<link rel="stylesheet" href="/pw/css/popups.css">
+	<script type="text/javascript" src="/pw/js/popup.js"></script>
 </head>
 <body>
 	<jsp:include page="/include/header.jsp"/>
@@ -17,8 +18,8 @@
 	            </div>
 	        </div>
 	        <div class="informacion-contacto ml-64">
-	            <div class="nombre-elemento">Ángel Sevilla Molina</div>
-	            <div class="descripcion-elemento">Estudiante de Grado de Ingeniería Informática</div>
+	            <div class="nombre-elemento"><%= profile.getName() %></div>
+	            <!--  <div class="descripcion-elemento">Estudiante de Grado de Ingeniería Informática</div> -->
 	        </div>
 	        <!-- <div class="mr-20"><button>Conectar</button></div> -->
 	    </div>
@@ -53,11 +54,11 @@
 	                <tr>
 	                    <td><span class="nombre-elemento">Correo electrónico</span></td>
 	                    <td><a href="mailto:sg@uco.es"
-	                           class="descripcion-elemento">i42semoa@uco.es</a></td>
+	                           class="descripcion-elemento"><%= profile.getMail() %>s</a></td>
 	                </tr>
 	                <tr>
 	                    <td><span class="nombre-elemento">Teléfono</span></td>
-	                    <td><span class="descripcion-elemento">(+34)957555555</span></td>
+	                    <td><span class="descripcion-elemento"><%= profile.getPhone() %></span></td>
 	                </tr>
 	                <tr>
 	                    <td><span class="nombre-elemento">Sitio web</span></td>
@@ -150,19 +151,7 @@
 	            <div class="titulo-caja">SOBRE MÍ</div>
 	            <div class="elemento-caja">
 	                <div>
-	                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-	                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-	                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-	                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-	                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-	                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-	                        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-	                        fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque
-	                        porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia
-	                        non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut
-	                        enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-	                        aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea </p>
+	                    <%= profile.getAboutMe() %>
 	                </div>
 	            </div>
 	            <!-- Añadir información personal -->
@@ -360,16 +349,17 @@
 	           onclick="cerrarPopUp('overlay', 'popup')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar información personalizada</h3>
-	        <form action="">
+	        <form action="/pw/editAboutMe" method="POST" accept-charset="UTF-8">
 	            <div class="contenedor-inputs">
-	                <textarea name="textarea"
+	                <textarea name="value"
 	                          placeholder="Editar información personalizada"
 	                          rows="10"
-	                          cols="50"></textarea>
+	                          cols="50"><%= profile.getAboutMe() %></textarea>
 	
 	            </div>
+	            <input type="hidden" name="mail" value="<%= profile.getMail() %>">
 	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="submit"
+	            <button type="button"
 	                    class="btn-submit"
 	                    onclick="cerrarPopUp('overlay', 'popup')">Volver
 	            </button>
@@ -393,7 +383,7 @@
 	           onclick="cerrarPopUp('overlay4', 'popup4')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>#21 Añadir Información</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	
 	                <input type="text"
@@ -434,7 +424,7 @@
 	           onclick="cerrarPopUp('overlay5', 'popup5')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar Formación</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	
 	                <input type="text"
@@ -476,7 +466,7 @@
 	           onclick="cerrarPopUp('overlay6', 'popup6')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Añadir Experiencia</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	                <input type="text"
 	                       placeholder="Lugar de trabajo">
@@ -516,7 +506,7 @@
 	           onclick="cerrarPopUp('overlay7', 'popup7')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar Experiencia</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	
 	                <input type="text"
@@ -558,7 +548,7 @@
 	           onclick="cerrarPopUp('overlay8', 'popup8')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Añadir patente</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	                <input type="text"
 	                       placeholder="Nombre">
@@ -604,7 +594,7 @@
 	           onclick="cerrarPopUp('overlay9', 'popup9')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar información de contacto</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	
 	                <input type="text"
@@ -650,7 +640,7 @@
 	           onclick="cerrarPopUp('overlay10', 'popup10')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Añadir Publicación</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	                <input type="text"
 	                       placeholder="Nombre">
@@ -699,7 +689,7 @@
 	           onclick="cerrarPopUp('overlay12', 'popup12')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar Publicación</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	                <input type="text"
 	                       placeholder="Titulo">
@@ -748,7 +738,7 @@
 	           onclick="cerrarPopUp('overlay11', 'popup11')"><i
 	                class="fas fa-times"></i></a>
 	        <h3>Editar Patente</h3>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	                <input type="text"
 	                       placeholder="Nombre">
@@ -798,14 +788,14 @@
 	        <h3>Editar Foto</h3>
 	        <a href="#"><img src="/pw/img/perfil.png"
 	                         alt="avatar"></a>
-	        <form action="">
+	        <form action="javascript:void(0)">
 	            <h4>Seleccione la foto de perfil</h4>
 	            <div class="contenedor-2">
 	                <input type="page"
 	                       name="archivosubido">
 	            </div>
 	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="submit"
+	            <button type="button"
 	                    class="btn-submit"
 	                    onclick="cerrarPopUp('overlay13', 'popup13')">Volver
 	            </button>
@@ -822,4 +812,3 @@
 	<jsp:include page="/include/footer.jsp"/>
 	
 </body>
-</html>

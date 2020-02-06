@@ -3,8 +3,8 @@
 	    <div class="logo circle" onclick="window.location.href='../pages/home.html'"></div>
 	    <nav>
 	        <div class="col-3">
-	            <a href="../pages/perfil-profesional.html"
-	               class="button">ASD</a>
+	            <a href="/pw/logout"
+	               class="button">Cerrar Sesión</a>
 	        </div>
 	        <div class="double-col-3 search-container">
 	            <form action="../pages/resultados.html"

@@ -11,7 +11,7 @@
 
 <body>
 <div class="contentaux">
-<form class="center w-3/4" action="registerAttempt" method="POST">
+<form class="center w-3/4" action="registerAttempt" method="POST" accept-charset="UTF-8">
     <div class="conjunto-registro" id="conj-reg">
         <div class="registro">
             <div class="user-img">
@@ -51,7 +51,7 @@
 
             <div class="boton-entrar">
                 <input type="submit" value="Registrarte" id="submit-button" disabled="disabled"/>
-                <input type="button" onclick="window.location.href = './login.html'" value="Volver al login"/>
+                <input type="button" onclick="window.location.href = './login.jsp'" value="Volver al login"/>
             </div>
         </div>
 	</div>

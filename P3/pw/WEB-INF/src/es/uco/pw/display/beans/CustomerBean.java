@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CustomerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String mail, idRol, sLogin;
+	private String mail, idRol;
 
 	public CustomerBean() {
 	}
@@ -31,11 +31,4 @@ public class CustomerBean implements Serializable {
 		return idRol;
 	}
 
-	public void setLogin(String login) {
-		this.sLogin = login;
-	}
-
-	public String getLogin() {
-		return sLogin;
-	}
 }

@@ -46,16 +46,16 @@ public class UserDAO extends DAO {
 		return base64Image;
 	}
 
-	public static int create(String email, String password, String fullName, String phoneNumber) {
+	public static int create(String mail, String password, String name, String phone) {
 		int status = 0;
 		try {
 			Connection con = getConnection();
 			PreparedStatement ps = con
-					.prepareStatement("insert into Users(email,password,nombre_completo,telefono) values(?,?,?,?)");
-			ps.setString(1, email);
+					.prepareStatement("insert into Users(mail,password,name,phone) values(?,?,?,?)");
+			ps.setString(1, mail);
 			ps.setString(2, password);
-			ps.setString(3, fullName);
-			ps.setString(4, phoneNumber);
+			ps.setString(3, name);
+			ps.setString(4, phone);
 			status = ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -80,28 +80,33 @@ public class UserDAO extends DAO {
 	}
 
 	// Para la consulta, se ha tomado una estructura Hash (columna-tabla, valor)
-	public static Hashtable<String, String> queryByEmail(String email) {
+	public static Hashtable<String, String> queryByMail(String mail) {
 		Statement stmt = null;
 		Hashtable<String, String> resul = null;
 		try {
 			Connection con = getConnection();
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(
-					"select password, nombre_completo, telefono, info, imagen from Users where email = " + email);
+			String query = "select password, name, phone, aboutme, image from Users where mail = '" + mail + "'";
+			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String password = rs.getString("password");
-				String nombreCompleto = rs.getString("nombre_completo");
-				String telefono = rs.getString("telefono");
-				String info = rs.getString("info");
-				String imagenBase64 = toBase64(rs.getBlob("imagen"));
+				String name = rs.getString("name");
+				String phone = rs.getString("phone");
+				String aboutme = rs.getString("aboutme");
+				//String imageBase64 = toBase64(rs.getBlob("image"));
 
 				resul = new Hashtable<String, String>();
-				resul.put("email", email);
+				resul.put("mail", mail);
 				resul.put("password", password);
-				resul.put("nombre_completo", nombreCompleto);
-				resul.put("info", info);
-				resul.put("telefono", telefono);
-				resul.put("imagen", imagenBase64);
+				resul.put("name", name);
+				if(aboutme == null) {
+					resul.put("aboutme", "");
+				}
+				else {
+				resul.put("aboutme", aboutme);
+				}
+				resul.put("phone", phone);
+				//resul.put("image", imageBase64);
 			}
 			// Se debe tener precaución con cerrar las conexiones, uso de auto-commit, etc.
 			if (stmt != null)
@@ -112,45 +117,63 @@ public class UserDAO extends DAO {
 		return resul;
 	}
 
-	public static Boolean checkMail(String email) throws SQLException {
+	public static Boolean mailExists(String mail) throws SQLException {
 		Connection con = getConnection();
 		Statement stmt = null;
 		ResultSet rs;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT email FROM Users WHERE email = '" + email + "'");
+			rs = stmt.executeQuery("SELECT mail FROM Users WHERE mail = '" + mail + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		// Comprobamos si la consulta está vacía (el mail introducido es válido)
-		Boolean retval = !rs.next();
+		// Comprobamos si la consulta no está vacía (el mail introducido existe)
+		Boolean retval = rs.next();
+		if (stmt != null)
+			stmt.close();
 		return retval;
 
 	}
-
-	public static Boolean checkPass(String email, String pass) throws SQLException {
+	
+	public static Boolean checkPass(String mail, String pass) throws SQLException {
 		Connection con = getConnection();
 		Statement stmt = null;
+		
 		ResultSet rs;
 
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT password FROM Users WHERE email = '" + email + "'");
+			rs = stmt.executeQuery("SELECT password FROM Users WHERE mail = '" + mail + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		return (pass == rs.getString("password"));
+		rs.beforeFirst();
+		rs.next();
+		String userPass = rs.getString("password");
+		return (pass.equals(userPass));
 
 	}
-
-	public static int delete(String email) {
+	public static int updateAboutMe(String mail, String aboutMe) {
 		int status = 0;
 		try {
 			Connection con = getConnection();
-			PreparedStatement ps = con.prepareStatement("delete from Users where email=?");
-			ps.setString(1, email);
+			PreparedStatement ps = con.prepareStatement("update Users set aboutMe=? where mail=?");
+			ps.setString(1, aboutMe);
+			ps.setString(2, mail);
+			status = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return status;
+	}
+	public static int delete(String mail) {
+		int status = 0;
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = con.prepareStatement("delete from Users where mail=?");
+			ps.setString(1, mail);
 			status = ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);

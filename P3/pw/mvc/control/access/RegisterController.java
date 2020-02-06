@@ -31,7 +31,7 @@ public class RegisterController extends HttpServlet {
 
 	private Boolean mailIsUnique(String mail) {
 		try {
-			return (UserDAO.checkMail(mail));
+			return (!UserDAO.mailExists(mail));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -48,7 +48,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerErrorPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/registerErrorView.jsp");
+		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/access/registerErrorView.jsp");
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -57,7 +57,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerSuccessPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/registerSuccessView.jsp");
+		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/access/registerSuccessView.jsp");
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -76,7 +76,7 @@ public class RegisterController extends HttpServlet {
 			registerErrorPage(request, response);
 			return;
 		}
-
+		request.setCharacterEncoding("UTF-8");
 		String nombre = request.getParameter("nombre");
 		String apellidos = request.getParameter("apellidos");
 		String mail = request.getParameter("correo");
@@ -93,6 +93,14 @@ public class RegisterController extends HttpServlet {
 			return;
 		}
 
+		HttpSession session = request.getSession();
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		if(customer == null) {
+			customer = new CustomerBean();
+		}
+		customer.setIdRol("User");
+		customer.setMail(mail);
+		session.setAttribute("customer", customer);
 		register(nombre, apellidos, mail, password, telefono);
 		registerSuccessPage(request, response);
 
