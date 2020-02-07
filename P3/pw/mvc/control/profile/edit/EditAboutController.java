@@ -1,4 +1,4 @@
-package control.profile;
+package control.profile.edit;
 
 import java.io.IOException;
 
