@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<jsp:useBean id="customer" class="es.uco.pw.display.beans.CustomerBean" scope="session"/>
+<html>
+	<head>
+		<jsp:include page="/include/common-head.jsp">
+			<jsp:param name="title" value="Registration Completed"/>
+    	</jsp:include>
+    	
+   		<meta http-equiv = "refresh" content = '5; url = /pw/profile?mail=<jsp:getProperty name="customer" property="mail"/>' />
+	</head>
+	<body>
+		<!-- <%@ include file="/include/header.jsp" %> -->
+		<jsp:include page="/include/header.jsp" />
+		<div class="caja">
+			<div class="titulo-caja">Registro completado exitosamente</div>
+			<div class="elemento-caja">
+				<p>
+				Su registro ha sido completado con éxito. Ahora será redirigido a su perfil, donde podrá
+				editar su información personal. Si la redirección no funciona automáticamente pulse 
+				<a href='/pw/profile?mail=<jsp:getProperty name="customer" property="mail"/>'>aquí</a>.
+			</div>
+		</div>
+		            
+		
+		<%@ include file="/include/footer.jsp" %>
+	</body>
+</html>
