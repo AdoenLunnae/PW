@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
-<%@ include file="./include/header.jsp" %>
 <head>
 	<% request.setCharacterEncoding("utf-8"); %>
 	<jsp:include page="/include/common-head.jsp">
@@ -9,6 +8,7 @@
 </head>
 
 <body>
+	<%@ include file="./include/header.jsp" %>
 	<div class="contentaux">
 	<div class="login" id="login">
 		<form action="loginAttempt" method="POST" accept-charset="UTF-8">
