@@ -24,7 +24,6 @@ import es.uco.pw.data.dao.ExperienceDAO;
 @WebServlet(name = "ProfileServlet", value = "/profile")
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private ArrayList<ExperienceBean> getExperiences(String userEmail){
 		List<Hashtable<String,String>> databaseResults = ExperienceDAO.queryByUserMail(userEmail);
 		ArrayList<ExperienceBean> result = new ArrayList<ExperienceBean>();
@@ -58,7 +57,7 @@ public class ProfileController extends HttpServlet {
 		profile.setAboutMe(userData.get("aboutme"));
 		profile.setPhone(userData.get("phone"));
 		profile.setExperiences(experiences);
-		
+		profile.setBase64Image(userData.get("image"));
 		session.setAttribute("profile", profile);
 		
 		RequestDispatcher rd = (customer.getMail().equals(mail)) 

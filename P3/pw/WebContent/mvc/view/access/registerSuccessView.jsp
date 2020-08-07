@@ -10,7 +10,6 @@
    		<meta http-equiv = "refresh" content = '5; url = /pw/profile?mail=<jsp:getProperty name="customer" property="mail"/>' />
 	</head>
 	<body>
-		<!-- <%@ include file="/include/header.jsp" %> -->
 		<jsp:include page="/include/header.jsp" />
 		<div class="caja">
 			<div class="titulo-caja">Registro completado con éxito</div>

@@ -14,11 +14,11 @@
 	<div class="barra-cabecera">
 	    <div class="contenedor-cabecera">
 	        <div class="w-1/4">
-	            <div class="absolute -mt-24 ml-20 mr-6">
-	            	<img src="/pw/img/perfil.png" alt="logo" class="imagen-perfil"/>
+	            <div class="circle-crop ml-6 -mt-5">
+	            	<img src= "<%= "data:image/jpeg;base64, " + profile.getBase64Image() %>" alt="logo" class="imagen-perfil"/>
 	            </div>
 	        </div>
-	        <div class="informacion-contacto ml-64">
+	        <div class="informacion-contacto ml-12">
 	            <div class="nombre-elemento"><%= profile.getName() %></div>
 	            <!--  <div class="descripcion-elemento">Estudiante de Grado de Ingeniería Informática</div> -->
 	        </div>

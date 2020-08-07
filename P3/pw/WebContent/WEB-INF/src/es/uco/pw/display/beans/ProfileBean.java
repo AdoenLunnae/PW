@@ -7,7 +7,7 @@ import java.util.Hashtable;
 public class ProfileBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String mail, name, aboutMe, phone;
+	private String mail, name, aboutMe, phone, base64Image;
 	private Hashtable<String, String> contactData;
 	private ArrayList<ExperienceBean> experiences;
 	
@@ -15,13 +15,14 @@ public class ProfileBean implements Serializable {
 		super();
 	}
 
-	public ProfileBean(String email, String name, String aboutMe, String phone, ArrayList<ExperienceBean> experiences) {
+	public ProfileBean(String email, String name, String aboutMe, String phone, ArrayList<ExperienceBean> experiences, String base64Image) {
 		super();
 		this.mail = email;
 		this.name = name;
 		this.aboutMe = aboutMe;
 		this.phone = phone;
 		this.experiences = experiences;
+		this.base64Image = base64Image;
 	}
 
 	public ArrayList<ExperienceBean> getExperiences() {
@@ -66,6 +67,14 @@ public class ProfileBean implements Serializable {
 
 	public Hashtable<String, String> getContactData() {
 		return contactData;
+	}
+
+	public String getBase64Image() {
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
 
 
