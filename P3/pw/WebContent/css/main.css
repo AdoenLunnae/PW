@@ -159,6 +159,7 @@ section {
 	align-self: center;
 	align-content: center;
 	display: flex;
+	overflow:hidden;
 }
 
 .double-col-3 {
@@ -168,6 +169,7 @@ section {
 	align-self: center;
 	align-content: center;
 	display: flex;
+	overflow:hidden;
 }
 .box {
 	float: right;
@@ -257,7 +259,7 @@ footer {
 	left:  0;
 	width: 100%;
 	height: 10vh;
-	margin-top: 2rem;
+	margin: 0;
 	padding: 0;
 	background-image: url("/pw/img/cabecera.png");
 	background-size: cover;
@@ -266,7 +268,7 @@ footer {
 header {
 	width: 100%;
 	height: 10vh;
-	margin-bottom: 2rem;
+	margin: 0;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -281,19 +283,20 @@ header {
 }
 .button {
 	margin: auto;
+	height: 100%;
 	background-color: #5e7de3;
 	border: none;
 	color: white;
-	border-radius: 5px;
-	padding: 10px 32px;
+	//border-radius: 5px;
+	padding: 4vh 32px 0;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
-	box-shadow: 2px 2px gray;
+	//box-shadow: 2px 2px gray;
 }
 .button:hover {
-	background-color: #4d65cd;
+	background-color: #4961c9;
 	box-shadow: none;
 }
 
@@ -331,11 +334,17 @@ nav .search-container button {
 	cursor: pointer;
 	display: flex;
 	align-self: center;
-	font-size: 16px;
+	font-size: 24px;
 	color: white;
 	box-shadow: 2px 1px gray;
 }
 
+.rotate{
+	-webkit-transform: rotate(-45deg); 
+    -moz-transform: rotate(-45deg); 
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
 nav .search-container button:hover {
 	background-color: #4d65cd;
 	box-shadow: none;
@@ -441,14 +450,14 @@ a:hover {
 
 body {
 	height: 100vh;
-	margin-bottom: 1vh;
+	margin: 0 !important;
 	background-color: #E8F0F2;
 	font-family: arial, sans-serif;
 }
 
 .contentaux{
 	display: flex;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 .linea-colaboradores {

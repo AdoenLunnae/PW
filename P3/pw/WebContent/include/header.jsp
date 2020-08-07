@@ -7,15 +7,26 @@
 	    <div class="logo circle" onclick="window.location.href='../pages/home.html'"></div>
 	    <nav>
 	    	<div class="col-3">
-	            <a href="/pw/logout" class="button">Cerrar Sesión</a>
-	        </div>
+	    		<% 
+	    		String target, text;
+	    		if(customer == null || customer.getIdRol().equals("Guest")){
+	    			target = "\"/pw/login.jsp\"";
+	    			text = "Iniciar Sesión";
+	    		}
+	    		else{	    			
+	    			target = "\"/pw/logout\"";
+	    			text = "Cerrar Sesión";
+	    		}
+	    		out.print("<a href=" + target + " class=\"button\">"+ text + "</a>");
+	            %>
+            </div>
 	        <div class="double-col-3 search-container">
 	            <form action="../pages/resultados.html"
 	                  style="display: flex">
 	                <input type="text"
-	                       placeholder="Buscar..."
+	                       placeholder="Buscar"
 	                       name="search">
-	                <button type="submit">Enviar</button>
+	                <button type="submit"><div class="rotate">&#9906;</div></button>
 	            </form>
 	        </div>
 	    </nav>
