@@ -28,6 +28,10 @@ public class ProfileBean implements Serializable {
 		return experiences;
 	}
 
+	public void setExperiences(ArrayList<ExperienceBean> experiences) {
+		this.experiences = experiences;
+	}
+
 	public String getMail() {
 		return mail;
 	}

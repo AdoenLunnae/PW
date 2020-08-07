@@ -2,9 +2,11 @@
 
 <jsp:useBean id="profile" class="es.uco.pw.display.beans.ProfileBean" scope="session"/>
 <head>
+	<% request.setCharacterEncoding("utf-8"); %>
 	<jsp:include page="/include/common-head.jsp">
 		<jsp:param name="title" value="<%= profile.getName() %>" />
 	</jsp:include>
+	
 	<link rel="stylesheet" href="/pw/css/popups.css">
 	<script type="text/javascript" src="/pw/js/popup.js"></script>
 </head>
@@ -52,7 +54,7 @@
 	                <tr>
 	                    <td><span class="nombre-elemento">Correo electrónico</span></td>
 	                    <td><a href="mailto:sg@uco.es"
-	                           class="descripcion-elemento"><%= profile.getMail() %>s</a></td>
+	                           class="descripcion-elemento"><%= profile.getMail() %></a></td>
 	                </tr>
 	                <tr>
 	                    <td><span class="nombre-elemento">Teléfono</span></td>

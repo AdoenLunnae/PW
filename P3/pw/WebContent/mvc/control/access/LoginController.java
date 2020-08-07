@@ -18,9 +18,7 @@ import es.uco.pw.data.dao.UserDAO;
 public class LoginController extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
-	private Boolean checkNotLogged(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+	private Boolean checkNotLogged(CustomerBean customer) {
 		return (customer == null || customer.getIdRol() == "Guest");
 	}
 
@@ -32,7 +30,11 @@ public class LoginController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (!checkNotLogged(request)) {
+		
+		HttpSession session = request.getSession();
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		
+		if (!checkNotLogged(customer)) {
 			// loginErrorPage(request, response);
 			return;
 		}
@@ -60,7 +62,8 @@ public class LoginController extends HttpServlet {
 		 catch (Exception e) {
 			 e.printStackTrace();
 		 }
-		 
+		 customer = new CustomerBean(mail, "User");
+		 session.setAttribute("customer", customer);
 		 response.sendRedirect("/pw/profile?mail=" + mail);
 		 return;
 	}

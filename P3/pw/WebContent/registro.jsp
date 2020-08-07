@@ -1,9 +1,10 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 <head>
+	<% request.setCharacterEncoding("UTF-8"); %>
     <jsp:include page="/include/common-head.jsp">
 			<jsp:param name="title" value="Registrarme"/>
-	   </jsp:include>
+	</jsp:include>
 	   	
     <script src="./js/passwordValidation.js"></script>
 

@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<% request.setCharacterEncoding("utf-8"); %>
 	<jsp:include page="./include/common-head.jsp">
         <jsp:param name="title" value="Términos y Condiciones"/>
     </jsp:include>
