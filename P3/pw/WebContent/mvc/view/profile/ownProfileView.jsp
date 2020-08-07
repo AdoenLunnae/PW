@@ -151,7 +151,7 @@
 	            <div class="titulo-caja">SOBRE MÍ</div>
 	            <div class="elemento-caja">
 	                <div>
-	                    <%= profile.getAboutMe() %>
+	                    <%= profile.getParsedAboutMe() %>
 	                </div>
 	            </div>
 	            <!-- Añadir información personal -->

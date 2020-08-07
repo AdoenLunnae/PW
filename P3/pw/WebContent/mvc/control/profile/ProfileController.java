@@ -23,7 +23,9 @@ import es.uco.pw.data.dao.ExperienceDAO;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
 public class ProfileController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<ExperienceBean> getExperiences(String userEmail){
 		List<Hashtable<String,String>> databaseResults = ExperienceDAO.queryByUserMail(userEmail);
 		ArrayList<ExperienceBean> result = new ArrayList<ExperienceBean>();
@@ -38,6 +40,38 @@ public class ProfileController extends HttpServlet {
 		return result;
 	}
 	
+	private String parseToHTML(String original) {
+		StringBuilder builder = new StringBuilder();
+	    boolean previousWasASpace = false;
+	    for( char c : original.toCharArray() ) {
+	        if( c == ' ' ) {
+	            if( previousWasASpace ) {
+	                builder.append("&nbsp;");
+	                previousWasASpace = false;
+	                continue;
+	            }
+	            previousWasASpace = true;
+	        } else {
+	            previousWasASpace = false;
+	        }
+	        switch(c) {
+	            case '<': builder.append("&lt;"); break;
+	            case '>': builder.append("&gt;"); break;
+	            case '&': builder.append("&amp;"); break;
+	            case '"': builder.append("&quot;"); break;
+	            case '\n': builder.append("<br>"); break;
+	            // We need Tab support here, because we print StackTraces as HTML
+	            case '\t': builder.append("&nbsp; &nbsp; &nbsp;"); break;  
+	            default:
+	                if( c < 128 ) {
+	                    builder.append(c);
+	                } else {
+	                    builder.append("&#").append((int)c).append(";");
+	                }    
+	        }
+	    }
+	    return builder.toString();
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -58,6 +92,7 @@ public class ProfileController extends HttpServlet {
 		profile.setPhone(userData.get("phone"));
 		profile.setExperiences(experiences);
 		profile.setBase64Image(userData.get("image"));
+		profile.setParsedAboutMe(parseToHTML(userData.get("aboutme")));
 		session.setAttribute("profile", profile);
 		
 		RequestDispatcher rd = (customer.getMail().equals(mail)) 

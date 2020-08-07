@@ -147,7 +147,7 @@
 	            </div>
 	            <div class="elemento-caja">
 	                <div>
-	                    <%= profile.getAboutMe() %>
+	                    <%= profile.getParsedAboutMe() %>
 	                </div>
 	            </div>
 	        </div>
