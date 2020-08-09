@@ -20,7 +20,7 @@
 	            </div>
 	        </div>
 	        <div class="informacion-contacto ml-12">
-	            <div class="nombre-elemento"><%= profile.getName() %></div>
+	            <div class="nombre-perfil -mt-2 ml-5"><%= profile.getName() %></div>
 	            <!--  <div class="descripcion-elemento">Estudiante de Grado de Ingeniería Informática</div> -->
 	        </div>
 	        <!-- <div class="mr-20"><button>Conectar</button></div> -->
