@@ -1,6 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
-<%@ include file="./include/header.jsp" %>
 <head>
 	<% request.setCharacterEncoding("UTF-8"); %>
     <jsp:include page="/include/common-head.jsp">
@@ -12,6 +11,9 @@
 </head>
 
 <body>
+
+<jsp:include page="/include/header.jsp" />
+
 <div class="contentaux">
 <form class="center w-3/4" action="registerAttempt" method="POST" accept-charset="UTF-8">
     <div class="conjunto-registro" id="conj-reg">

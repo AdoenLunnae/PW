@@ -183,22 +183,39 @@
 	        <div class="caja">
 	            <div class="titulo-caja">EXPERIENCIA</div>
 	            <!-- Elemento experiencia -->
-	            <div class="elemento-caja">
-	                <div class="py-2">
-	                    <a href="./perfil-empresa.html"><img src="/pw/img/perfil.png"
-	                                                         alt="avatar"
-	                                                         class="imagen-contacto"></a>
-	                </div>
-	                <div class="informacion-contacto">
-	                    <div class="flex justify-between">
-	                        <div><a href="./perfil-empresa.html"
-	                                class="nombre-elemento">Nombre de la institución</a></div>
-	                        
-	                    <div class="descripcion-elemento">2012 - 2014</div>
-	                </div>
-	            </div>
+	             <% for ( es.uco.pw.display.beans.ExperienceBean experience : profile.getExperiences() ) { %>
+       				<div class="elemento-caja">
+		                <div class="py-2">
+							<img src="/pw/img/perfil.png" alt="avatar" class="imagen-contacto">
+						</div>
+		                <div class="informacion-contacto">
+		                    <div class="flex justify-between">
+		                        <div class="nombre-elemento">
+		                        	<%= experience.getNombre() %>
+		                        </div>
+		                    </div>
+		                    <div class="descripcion-elemento">
+			                    <%=  experience.getDescripcion() %>
+		                    </div>
+		                    <br/>
+		                    <div class="descripcion-elemento">
+			                    En <%=  experience.getLugar() %>
+		                    </div>
+		                    <div class="descripcion-elemento">
+			                    Desde <%= experience.getStart() %>
+			                    <% if(experience.getEnd() != null) { %>
+			                    	&nbsp;
+			                    	&nbsp;
+			                    	<b>&#8594;</b>
+			                    	&nbsp;
+			                    	&nbsp;
+			                    	Hasta <%= experience.getEnd() %>
+			                    <% } %>
+		                    </div>
+		                </div>
+	            	</div>
+    			<% } %>
 	        </div>
-			</div>
 	        <!-- Artículos  -->
 	        <div class="caja">
 	            <div class="titulo-caja">

@@ -319,15 +319,11 @@ nav input[type='text'] {
 	font-size: 17px;
 	border: none;
 	border-radius: 5px 0 0 5px;
-
-	box-shadow: 0 2px gray;
 }
 
 nav .search-container button {
 	float: right;
-	padding-right: 10px;
-	padding-top: 8px;
-	padding-bottom: 9px;
+	padding: 8px 15px;
 	height: 100%;
 	margin-top: 0;
 	border: none;
@@ -338,7 +334,6 @@ nav .search-container button {
 	align-self: center;
 	font-size: 24px;
 	color: white;
-	box-shadow: 2px 1px gray;
 }
 
 .rotate{
@@ -348,8 +343,8 @@ nav .search-container button {
     transform: rotate(-45deg);
 }
 nav .search-container button:hover {
-	background-color: #4d65cd;
-	box-shadow: none;
+	background-color: #4961c9;
+	box-shadow: inset -2px -2px 5px 2px rgba(0,0,0,0.75), inset 2px 2px 9px 2px rgba(0,0,0,0.75);
 }
 
 a {
@@ -432,7 +427,14 @@ a:hover {
 .enlace-pu {
 	text-align: right;
 	color: #285e61;
-	font-size: .75rem;
+	font-size: .85rem;
+}
+
+.boton-borrar {
+	text-align: right;
+	color: red;
+	font-size: .85rem;
+	font-weight: bold;
 }
 
 .caja {

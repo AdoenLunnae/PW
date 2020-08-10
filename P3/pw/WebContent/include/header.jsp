@@ -9,7 +9,12 @@
 	    	<div class="col-3">
 	    		<% 
 	    		String target, text;
-	    		if(customer == null || customer.getIdRol().equals("Guest")){
+	    		if(customer.getMail() == null){
+	    			customer = new es.uco.pw.display.beans.CustomerBean("", "Guest");
+	    			session.setAttribute("customer", customer);
+	    		}
+	    		
+	    		if(customer.getIdRol().equals("Guest")){
 	    			target = "\"/pw/login.jsp\"";
 	    			text = "Iniciar Sesión";
 	    		}

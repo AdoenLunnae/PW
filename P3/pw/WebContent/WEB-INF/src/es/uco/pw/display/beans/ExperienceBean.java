@@ -13,8 +13,9 @@ public class ExperienceBean implements Serializable {
 	public ExperienceBean() {
 	}
 
-	public ExperienceBean(Date start, Date end, String nombre, String descripcion, String lugar) {
+	public ExperienceBean(int id, Date start, Date end, String nombre, String descripcion, String lugar) {
 		super();
+		this.id = id;
 		this.start = start;
 		this.end = end;
 		this.nombre = nombre;

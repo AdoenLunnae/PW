@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <jsp:useBean id="profile" class="es.uco.pw.display.beans.ProfileBean" scope="session"/>
@@ -9,6 +10,7 @@
 	
 	<link rel="stylesheet" href="/pw/css/popups.css">
 	<script type="text/javascript" src="/pw/js/popup.js"></script>
+	<script type="text/javascript" src="/pw/js/submitForm.js"></script>
 </head>
 <body>
 	<jsp:include page="/include/header.jsp"/>
@@ -172,23 +174,6 @@
 	                <div class="informacion-contacto">
 	                    <div class="flex justify-between">
 	                        <div><a href="./perfil-empresa.html"
-	                                class="nombre-elemento">IES Gran Capitán de Córdoba</a>
-	                        </div>
-	                        <div><a href="#"
-	                                class="enlace-pu"
-	                                onclick="abrirPopUp('overlay5', 'popup5')">Editar</a></div>
-	                    </div>
-	                    <div class="descripcion-elemento">2012 - 2014</div>
-	                </div>
-	            </div>
-	            <!-- Elemento formación -->
-	            <div class="elemento-caja">
-	                <div class="py-2"><a href="./perfil-empresa.html"><img src="/pw/img/perfil.png"
-	                                                                       alt="avatar"
-	                                                                       class="imagen-contacto"></a></div>
-	                <div class="informacion-contacto">
-	                    <div class="flex justify-between">
-	                        <div><a href="./perfil-empresa.html"
 	                                class="nombre-elemento">Universidad de Córdoba</a></div>
 	                        <div><a href="#"
 	                                class="enlace-pu"
@@ -207,28 +192,60 @@
 	        <!-- Experiencia -->
 	        <div class="caja">
 	            <div class="titulo-caja">EXPERIENCIA</div>
-	            <!-- Elemento experiencia -->
-	            <div class="elemento-caja">
-	                <div class="py-2">
-	                    <a href="./perfil-empresa.html"><img src="/pw/img/perfil.png"
-	                                                         alt="avatar"
-	                                                         class="imagen-contacto"></a>
-	                </div>
-	                <div class="informacion-contacto">
-	                    <div class="flex justify-between">
-	                        <div><a href="./perfil-empresa.html"
-	                                class="nombre-elemento">Nombre de la institución</a></div>
-	                        <div><a href="#"
-	                                class="enlace-pu"
-	                                onclick="abrirPopUp('overlay7', 'popup7')">Editar</a></div>
-	                    </div>
-	                    <div class="descripcion-elemento">2012 - 2014</div>
-	                </div>
-	            </div>
+	            <% for ( es.uco.pw.display.beans.ExperienceBean experience : profile.getExperiences() ) { %>
+       				<div class="elemento-caja">
+		                <div class="py-2">
+							<img src="/pw/img/perfil.png" alt="avatar" class="imagen-contacto">
+						</div>
+		                <div class="informacion-contacto">
+		                    <div class="flex justify-between">
+		                        <div class="nombre-elemento">
+		                        	<%= experience.getNombre() %>
+		                        </div>
+		                        <div>
+		                        	<a href="#" class="enlace-pu"  onclick="abrirPopUp('<%= "overlay-exp-" + experience.getId() %>', '<%= "popup-exp-" + experience.getId() %>')">
+		                        		Editar
+		                        	</a>
+		                        </div>
+		                    </div>
+		                    <div class="flex justify-between">
+			                    <div class="descripcion-elemento">
+				                    <%=  experience.getDescripcion() %>
+			                    </div>
+			                    <div>
+			                    	<% String formId =  "delete-exp-" + experience.getId() ; %>
+			                    	<form id=<%= formId %> action="/pw/deleteExperience" method="POST">
+			                    		<input type="hidden" name="id" value=<%= experience.getId() %>>
+			                    		<input type="hidden" name="mail" value=<%= profile.getMail() %>>
+			                        	<a href='#' class="boton-borrar" onClick="submitForm('<%= formId %>')" >
+			                        		Borrar
+			                        	</a>
+		                        	</form>
+		                        </div>
+		                    </div>
+		                    <br/>
+		                    <div class="descripcion-elemento">
+			                    En <%=  experience.getLugar() %>
+		                    </div>
+		                    <div class="descripcion-elemento">
+			                    Desde <%= experience.getStart() %>
+			                    <% if(experience.getEnd() != null) { %>
+			                    	&nbsp;
+			                    	&nbsp;
+			                    	<b>&#8594;</b>
+			                    	&nbsp;
+			                    	&nbsp;
+			                    	Hasta <%= experience.getEnd() %>
+			                    <% } %>
+		                    </div>
+		                </div>
+	            	</div>
+    			<% } %>
 	            <!-- Añadir experiencia -->
-	            <div class="accion-caja"><a href="#"
-	                                        class="enlace-pu"
-	                                        onclick="abrirPopUp('overlay6', 'popup6')">Añadir</a>
+	            <div class="accion-caja">
+	            	<a href="#" class="enlace-pu" onclick="abrirPopUp('overlay-exp-add', 'popup-exp-add')">
+	            		Añadir
+	            	</a>
 	            </div>
 	        </div>
 	
@@ -338,30 +355,20 @@
 	</div>
 	
 	<!-- POP-UPS -->
-	<!-- POP-UPS Editar información personalizada-->
-	<div class="overlay"
-	     id="overlay">
-	    <div class="popup"
-	         id="popup">
-	        <a href="#"
-	           id="btn-cerrar-popup"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay', 'popup')"><i
-	                class="fas fa-times"></i></a>
+	<!-- POP-UPS Editar Sobre Mí-->
+	<div class="overlay" id="overlay">
+	    <div class="popup" id="popup">
 	        <h3>Editar información personalizada</h3>
 	        <form action="/pw/editAboutMe" method="POST" accept-charset="UTF-8">
 	            <div class="contenedor-inputs">
-	                <textarea name="value"
-	                          placeholder="Editar información personalizada"
-	                          rows="10"
-	                          cols="50"><%= profile.getAboutMe() %></textarea>
-	
+	                <textarea name="value" placeholder="Editar información personalizada" rows="10" cols="50">
+	                	<%= profile.getAboutMe() %>
+	                </textarea>
 	            </div>
+	            
 	            <input type="hidden" name="mail" value="<%= profile.getMail() %>">
-	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="button"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay', 'popup')">Volver
+	            <button type="button" class="btn-submit" onclick="cerrarPopUp('overlay', 'popup')">
+	                    Volver
 	            </button>
 	            <button type="submit"
 	                    class="btn-submit"
@@ -371,7 +378,11 @@
 	        </form>
 	    </div>
 	</div>
-	<!-- POP-UPS Fin Editar información personalizada-->
+	<!-- POP-UPS Fin Editar Sobre Mí-->
+	
+	
+	
+	
 	<!-- POP-UPS Añadir información-->
 	<div class="overlay"
 	     id="overlay4">
@@ -412,8 +423,10 @@
 	        </form>
 	    </div>
 	</div>
-	<!-- POP-UPS Fin Añadir información-->
-	<!-- POP-UPS Editar información-->
+	<!-- POP-UPS Fin Añadir formación-->
+	
+	
+	<!-- POP-UPS Editar formación-->
 	<div class="overlay"
 	     id="overlay5">
 	    <div class="popup"
@@ -455,87 +468,63 @@
 	    </div>
 	</div>
 	<!-- POP-UPS Fin Editar información-->
+	
+	
+	
+	
 	<!-- POP-UPS Añadir Experiencia-->
-	<div class="overlay"
-	     id="overlay6">
-	    <div class="popup"
-	         id="popup6">
-	        <a href="#"
-	           id="btn-cerrar-popup6"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay6', 'popup6')"><i
-	                class="fas fa-times"></i></a>
+	<div class="overlay" id="overlay-exp-add">
+	    <div class="popup" id="popup-exp-add">
 	        <h3>Añadir Experiencia</h3>
-	        <form action="javascript:void(0)">
-	            <div class="contenedor-inputs">
-	                <input type="text"
-	                       placeholder="Lugar de trabajo">
-	                <input type="text"
-	                       placeholder="Puesto">
-	                <div id="popup46">
-	                    <input type="text"
-	                           placeholder="Año inicial">
-	                    <input type="text"
-	                           placeholder="Año Final">
-	                </div>
-	                <textarea name="textarea"
-	                          placeholder="Descripción"
-	                          rows="10"
-	                          cols="50"></textarea>
-	            </div>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay6', 'popup6')">Volver
-	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay6', 'popup6')">Aceptar
-	            </button>
-	        </form>
+	        <form action="/pw/addExperience" method="POST" accept-charset="UTF-8">
+		            <div class="contenedor-inputs">
+		            	<input type="text" name="nombre" placeholder="Nombre">
+		                <input type="text" name="lugar" placeholder="Lugar de trabajo">		               
+	                    <input type="date" name="start" placeholder="Fecha de inicio">
+	                    <input type="date" name="end" placeholder="Fecha de finalización">
+		                <textarea name="descripcion" placeholder="Descripción" rows="10" cols="50"></textarea>
+		            </div>
+		            <input type="hidden" name="mail" value= <%= profile.getMail() %> >
+		            <button type ="button" class="btn-submit" onclick="cerrarPopUp('overlay-exp-add', 'popup-exp-add')">
+		            	Volver
+		            </button>
+		            <button type="submit" class="btn-submit">
+		            	Aceptar
+		            </button>
+		        </form>
 	    </div>
 	</div>
 	<!-- POP-UPS Fin Añadir Experiencia-->
-	<!-- POP-UPS Editar Experiencia-->
-	<div class="overlay"
-	     id="overlay7">
-	    <div class="popup"
-	         id="popup7">
-	        <a href="#"
-	           id="btn-cerrar-popup7"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay7', 'popup7')"><i
-	                class="fas fa-times"></i></a>
-	        <h3>Editar Experiencia</h3>
-	        <form action="javascript:void(0)">
-	            <div class="contenedor-inputs">
 	
-	                <input type="text"
-	                       placeholder="Lugar de trabajo">
-	                <input type="text"
-	                       placeholder="Puesto">
-	                <div id="popup47"
-	                     class="estilotam">
-	                    <input type="text"
-	                           placeholder="Año inicial">
-	                    <input type="text"
-	                           placeholder="Año Final">
-	                </div>
-	                <textarea name="textarea"
-	                          placeholder="Descripción"
-	                          rows="10"
-	                          cols="50"></textarea>
-	            </div>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay7', 'popup7')">Volver
-	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay7', 'popup7')">Aceptar
-	            </button>
-	        </form>
-	    </div>
-	</div>
+	
+	<!-- POP-UPS Editar Experiencia-->
+	<% for ( es.uco.pw.display.beans.ExperienceBean experience : profile.getExperiences() ) { %>
+		<div class="overlay" id= <%= "overlay-exp-" + experience.getId() %> >
+		    <div class="popup"  id= <%= "popup-exp-" + experience.getId() %> >
+		        <h3>Editar Experiencia</h3>
+		        <form action="/pw/editExperience" method="POST" accept-charset="UTF-8">
+		            <div class="contenedor-inputs">
+		            	<input type="text" name="nombre" placeholder="Nombre" value="<%= experience.getNombre() %>">
+		                <input type="text" name="lugar" placeholder="Lugar de trabajo" value="<%= experience.getLugar() %>">		               
+	                    <input type="date" name="start" placeholder="Fecha de inicio" value=<%= experience.getStart() %>>
+	                    <input type="date" name="end" placeholder="Fecha de finalización" value=<%= experience.getStart() %>>
+		                <textarea name="descripcion" placeholder="Descripción" rows="10" cols="50">
+		                	<%= experience.getDescripcion() %>
+		                </textarea>
+		            </div>
+		            <input type="hidden" name="id" value= <%= experience.getId() %> >
+		            <input type="hidden" name="mail" value= <%= profile.getMail() %> >
+		            <button type ="button" class="btn-submit" onclick="cerrarPopUp('<%= "overlay-exp-" + experience.getId() %>', '<%= "popup-exp-" + experience.getId() %>')">
+		            	Volver
+		            </button>
+		            <button type="submit" class="btn-submit">
+		            	Aceptar
+		            </button>
+		        </form>
+		    </div>
+		</div>
+	<% } %>
+	
 	<!-- POP-UPS Fin Editar Experiencia-->
 	<!-- POP-UPS Añadir Patente-->
 	<div class="overlay"

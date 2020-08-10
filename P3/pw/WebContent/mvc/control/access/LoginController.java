@@ -18,8 +18,8 @@ import es.uco.pw.data.dao.UserDAO;
 public class LoginController extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
-	private Boolean checkNotLogged(CustomerBean customer) {
-		return (customer == null || customer.getIdRol() == "Guest");
+	private Boolean userIsLogged(CustomerBean customer) {
+		return (customer != null && !customer.getIdRol().equals("Guest"));
 	}
 
 	/*
@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
 		
-		if (!checkNotLogged(customer)) {
+		if (userIsLogged(customer)) {
 			// loginErrorPage(request, response);
 			return;
 		}

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<%@ include file="./include/header.jsp" %>
+	<jsp:include page="/include/header.jsp" />
 	<div class="contentaux">
 	<div class="login" id="login">
 		<form action="loginAttempt" method="POST" accept-charset="UTF-8">

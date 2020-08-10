@@ -29,13 +29,16 @@ public class ProfileController extends HttpServlet {
 	private ArrayList<ExperienceBean> getExperiences(String userEmail){
 		List<Hashtable<String,String>> databaseResults = ExperienceDAO.queryByUserMail(userEmail);
 		ArrayList<ExperienceBean> result = new ArrayList<ExperienceBean>();
-		ExperienceBean currentExperience = new ExperienceBean();
+		ExperienceBean currentExperience = null;
 		for (Hashtable<String,String> databaseResult : databaseResults) {
+			currentExperience = new ExperienceBean();
+			currentExperience.setId(Integer.valueOf(databaseResult.get("id")));
 			currentExperience.setStart(Date.valueOf(databaseResult.get("start")));
 			currentExperience.setEnd(Date.valueOf(databaseResult.get("end")));
 			currentExperience.setNombre(databaseResult.get("nombre"));
 			currentExperience.setDescripcion(databaseResult.get("descripcion"));
 			currentExperience.setLugar(databaseResult.get("lugar"));
+			result.add(currentExperience);
 		}
 		return result;
 	}
@@ -78,7 +81,7 @@ public class ProfileController extends HttpServlet {
 		
 		String mail = request.getParameter("mail");
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-		if(customer == null) {
+		if(customer == null || customer.getMail() == null || customer.getIdRol() == null) {
 			customer = new CustomerBean("", "Guest");
 			session.setAttribute("customer", customer);
 		}

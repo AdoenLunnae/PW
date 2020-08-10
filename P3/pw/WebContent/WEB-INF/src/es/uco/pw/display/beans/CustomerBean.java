@@ -8,6 +8,8 @@ public class CustomerBean implements Serializable {
 	private String mail, idRol;
 
 	public CustomerBean() {
+		this.mail = "";
+		this.idRol = "Guest";
 	}
 
 	public CustomerBean(String mail, String idRol) {
