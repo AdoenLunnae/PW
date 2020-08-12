@@ -6,12 +6,26 @@ import java.util.Hashtable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 public class ExperienceDAO extends DAO {
 
+	private static Hashtable<String, String> hashtableFromResultSet(ResultSet data) throws SQLException {
+		Hashtable<String, String> hashtable = new Hashtable<String, String>();
+			
+		hashtable.put("id", data.getString("id"));
+		hashtable.put("start", data.getString("start"));
+		hashtable.put("end", data.getString("end"));
+		hashtable.put("nombre", data.getString("nombre"));
+		hashtable.put("descripcion", data.getString("descripcion"));
+		hashtable.put("lugar", data.getString("lugar"));
+		
+		return hashtable;
+	}
+	
 	public static ArrayList<Hashtable<String, String>> queryByUserMail(String userMail){
 		Statement stmt = null;
 		ArrayList<Hashtable<String, String>> result = new ArrayList<Hashtable<String, String>>();
@@ -23,21 +37,7 @@ public class ExperienceDAO extends DAO {
 			String query = "SELECT id, start, end, nombre, descripcion, lugar FROM Experiences WHERE user_email = '" + userMail + "'  ORDER BY 'start', 'end' ASC";
 			rs = stmt.executeQuery(query);
 			while (rs != null && rs.next()) {
-				String id = rs.getString("id");
-				String start = rs.getString("start");
-				String end = rs.getString("end");
-				String nombre = rs.getString("nombre");
-				String descripcion = rs.getString("descripcion");
-				String lugar =  rs.getString("lugar");
-				
-				current = new Hashtable<String,String>();
-				
-				current.put("id", id);
-				current.put("start", start);
-				current.put("end", end);
-				current.put("nombre", nombre);
-				current.put("descripcion", descripcion);
-				current.put("lugar", lugar);
+				current = hashtableFromResultSet(rs);
 				
 				result.add(current);
 			}

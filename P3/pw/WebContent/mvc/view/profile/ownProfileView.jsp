@@ -32,55 +32,44 @@
 	<!-- Información del perfil -->
 	<div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
 	    <!-- Columna izquierda -->
-	    <div class="w-full lg:w-1/4 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
+	    <div class="lg:w-1/3 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
 	        <!-- información de contacto -->
 	        <div class="caja">
 	            <div class="titulo-caja">Información de contacto</div>
 	            <table class="contact-data">
-	                <tr>
-	                    <td><span class="nombre-elemento">País</span></td>
-	                    <td><span class="descripcion-elemento">España</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Comunidad</span></td>
-	                    <td><span class="descripcion-elemento">Andalucía</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Ciudad</span></td>
-	                    <td><span class="descripcion-elemento">Córdoba, Córdoba</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Dirección</span></td>
-	                    <td><span class="descripcion-elemento">C. Julio César, Córdoba, Córdoba 14007, ES</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Correo electrónico</span></td>
-	                    <td><a href="mailto:sg@uco.es"
-	                           class="descripcion-elemento"><%= profile.getMail() %></a></td>
+                     <tr>
+	                    <td><span class="nombre-elemento">Email</span></td>
+	                    <td><a href="mailto:sg@uco.es" class="descripcion-elemento"><%= profile.getMail() %></a></td>
+	                    <td><a href="#" class="enlace-pu" onclick="abrirPopUp('overlay9', 'popup9')">Editar</a></td>
+	                    <td><a href="#" class="boton-borrar" onclick="abrirPopUp('overlay9', 'popup9')">Borrar</a></td>
 	                </tr>
 	                <tr>
 	                    <td><span class="nombre-elemento">Teléfono</span></td>
 	                    <td><span class="descripcion-elemento"><%= profile.getPhone() %></span></td>
+	                    <td><a href="#" class="enlace-pu" onclick="abrirPopUp('overlay9', 'popup9')">Editar</a></td>
+	                    <td><a href="#" class="boton-borrar" onclick="abrirPopUp('overlay9', 'popup9')">Borrar</a></td>
 	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Sitio web</span></td>
-	                    <td><a href="http://www.paginafalsa.es/"
-	                           class="descripcion-elemento">paginafalsa.es</a></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Twitter</span></td>
-	                    <td><a href="https://twitter.com/angelsevilla"
-	                           class="descripcion-elemento">angelsevilla</a></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Linkedin</span></td>
-	                    <td><a href="https://www.linkedin.com/in/angelsevilla/"
-	                           class="descripcion-elemento">angelsevilla</a></td>
-	                </tr>
+	                <% for( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
+	                	<tr>
+		                    <td><div class="nombre-elemento"><%= contactInfo.getName() %></div></td>
+		                    <td><div class="descripcion-elemento"><%= contactInfo.getValue() %></div></td>
+		                    <td><a href="#" class="enlace-pu" onclick="abrirPopUp('<%= "overlay-contact-" + contactInfo.getId() %>', '<%= "popup-contact-"+ contactInfo.getId() %>')">Editar</a></td>
+		                    <td><a href="#" class="boton-borrar" onclick="submitForm('<%="delete-contact-" + contactInfo.getId() %>')">Borrar</a></td>
+	                	</tr>
+	                <% } %>
 	            </table>
-	            <div class="accion-caja"><a href="#"
-	                                        class="enlace-pu"
-	                                        onclick="abrirPopUp('overlay9', 'popup9')">Editar</a>
+	            
+	            <% for( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
+	            	<form class="nodisplay" id= '<%="delete-contact-" + contactInfo.getId() %>'>
+	                	<input type="hidden" name="id" value=<%= contactInfo.getId() %> >
+	                	<input type="hidden" name="mail" value=<%= profile.getMail() %> >
+	                </form>
+	            <% } %>
+	            
+	            <div class="accion-caja">
+	            	<a href="#" class="enlace-pu" onclick="abrirPopUp('overlay-contact-add', 'popup-contact-add')">
+	            		Añadir
+	            	</a>
 	            </div>
 	        </div>
 	        <!-- Contactos -->
@@ -88,12 +77,17 @@
 	            <div class="titulo-caja">Contactos</div>
 	            <!-- Elemento contacto -->
 	            <div class="elemento-caja">
-	                <div class="py-2"><a href="#"><img src="/pw/img/perfil.png"
-	                                                   alt="avatar"
-	                                                   class="imagen-contacto"></a></div>
+	                <div class="py-2">
+	                	<a href="#">
+	                		<img src="/pw/img/perfil.png" alt="avatar"  class="imagen-contacto">
+	                	</a>
+	                </div>
 	                <div class="informacion-contacto">
-	                    <div><a href="#"
-	                            class="nombre-elemento">Pedro Sánchez</a></div>
+	                    <div>
+		                    <a href="#" class="nombre-elemento">
+		                    	Pedro Sánchez
+		                    </a>
+		                </div>
 	                    <div class="descripcion-elemento"> Presidente del Gobierno y secretario general del PSOE</div>
 	                </div>
 	            </div>
@@ -147,7 +141,7 @@
 	    </div>
 	
 	    <!-- Columna central -->
-	    <div class="w-full lg:w-1/2 mb-4">
+	    <div class="lg:w-2/3 mb-4">
 	        <!-- Sobre mí -->
 	        <div class="caja">
 	            <div class="titulo-caja">SOBRE MÍ</div>
@@ -214,13 +208,13 @@
 			                    </div>
 			                    <div>
 			                    	<% String formId =  "delete-exp-" + experience.getId() ; %>
-			                    	<form id=<%= formId %> action="/pw/deleteExperience" method="POST">
+			                    	<form class="nodisplay" id=<%= formId %> action="/pw/deleteExperience" method="POST">
 			                    		<input type="hidden" name="id" value=<%= experience.getId() %>>
 			                    		<input type="hidden" name="mail" value=<%= profile.getMail() %>>
-			                        	<a href='#' class="boton-borrar" onClick="submitForm('<%= formId %>')" >
-			                        		Borrar
-			                        	</a>
 		                        	</form>
+		                        	<a href='#' class="boton-borrar" onClick="submitForm('<%= formId %>')" >
+		                        		Borrar
+		                        	</a>
 		                        </div>
 		                    </div>
 		                    <br/>
@@ -573,50 +567,27 @@
 	</div>
 	<!-- POP-UPS Fin Añadir Patente-->
 	<!-- POP-UPS Editar información de contacto-->
-	<div class="overlay"
-	     id="overlay9">
-	    <div class="popup"
-	         id="popup9">
-	        <a href="#"
-	           id="btn-cerrar-popup9"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay9', 'popup9')"><i
-	                class="fas fa-times"></i></a>
-	        <h3>Editar información de contacto</h3>
-	        <form action="javascript:void(0)">
-	            <div class="contenedor-inputs">
-	
-	                <input type="text"
-	                       placeholder="País">
-	                <input type="text"
-	                       placeholder="Comunidad">
-	                <input type="text"
-	                       placeholder="Ciudad">
-	                <input type="text"
-	                       placeholder="Dirección">
-	                <input type="text"
-	                       placeholder="Correo Electrónico">
-	                <input type="text"
-	                       placeholder="Teléfono">
-	                <h4>Redes sociales</h4>
-	                <input type="text"
-	                       placeholder="Enlace Twitter">
-	                <input type="text"
-	                       placeholder="Enlace Linkedin">
-	                <input type="text"
-	                       placeholder="Sitio Web">
-	            </div>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay9', 'popup9')">Volver
-	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay9', 'popup9')">Aceptar
-	            </button>
-	        </form>
-	    </div>
-	</div>
+	<% for ( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
+		<div class="overlay" id='<%= "overlay-contact-" + contactInfo.getId() %>' >
+		    <div class="popup"  id='<%= "popup-contact-" + contactInfo.getId() %>' >
+		        <h3>Editar información de contacto</h3>
+		        <form action="/pw/editContactInfo" method="post" accept-charset="utf-8">
+		            <div class="contenedor-inputs">
+						<input type="text" name='name' placeholder="Nombre" value='<%= contactInfo.getName() %>' > 
+		                <input type="text" name='value' placeholder="Valor" value='<%= contactInfo.getValue() %>' >
+		                <input type="hidden" name='id' value=<%= contactInfo.getId() %>>
+		                <input type="hidden" name='mail' value=<%= profile.getMail() %>>
+		            </div>
+		            <button type="button" class="btn-submit"  onclick="cerrarPopUp('<%= "overlay-contact-" + contactInfo.getId() %>', '<%= "popup-contact-" + contactInfo.getId() %>')">
+		            	Volver
+		            </button>
+		            <button type="submit" class="btn-submit">
+		            	Aceptar
+		            </button>
+		        </form>
+		    </div>
+		</div>
+	<% } %>
 	<!-- POP-UPS Fin Editar información de contacto-->
 	<!-- POP-UPS Añadir Publicación-->
 	<div class="overlay"

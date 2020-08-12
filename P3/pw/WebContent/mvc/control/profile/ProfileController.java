@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 
 //import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ProfileBean;
+import es.uco.pw.display.beans.ContactInfoBean;
 import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ExperienceBean;
 import es.uco.pw.data.dao.UserDAO;
+import es.uco.pw.data.dao.ContactInfoDAO;
 import es.uco.pw.data.dao.ExperienceDAO;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
@@ -39,6 +41,21 @@ public class ProfileController extends HttpServlet {
 			currentExperience.setDescripcion(databaseResult.get("descripcion"));
 			currentExperience.setLugar(databaseResult.get("lugar"));
 			result.add(currentExperience);
+		}
+		return result;
+	}
+	
+	private ArrayList<ContactInfoBean> getContactInfo(String userEmail){
+		List<Hashtable<String,String>> databaseResults = ContactInfoDAO.queryByMail(userEmail);
+		ArrayList<ContactInfoBean> result = new ArrayList<ContactInfoBean>();
+		ContactInfoBean currentInfo = null;
+		for (Hashtable<String,String> databaseResult : databaseResults) {
+			currentInfo = new ContactInfoBean(
+											Integer.valueOf(databaseResult.get("id")), 
+											databaseResult.get("name"), 
+											databaseResult.get("value")
+										);
+			result.add(currentInfo);
 		}
 		return result;
 	}
@@ -87,13 +104,14 @@ public class ProfileController extends HttpServlet {
 		}
 		Hashtable<String,String> userData = UserDAO.queryByMail(mail);
 		ArrayList<ExperienceBean> experiences = getExperiences(mail);
-		
+		ArrayList<ContactInfoBean> contactInfo = getContactInfo(mail);
 		ProfileBean profile = new ProfileBean();
 		profile.setMail(mail);
 		profile.setName(userData.get("name"));
 		profile.setAboutMe(userData.get("aboutme"));
 		profile.setPhone(userData.get("phone"));
 		profile.setExperiences(experiences);
+		profile.setAllContactInfo(contactInfo);
 		profile.setBase64Image(userData.get("image"));
 		profile.setParsedAboutMe(parseToHTML(userData.get("aboutme")));
 		session.setAttribute("profile", profile);

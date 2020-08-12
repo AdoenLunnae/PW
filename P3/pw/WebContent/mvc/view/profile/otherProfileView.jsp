@@ -29,29 +29,13 @@
 	<!-- Información del perfil -->
 	<div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
 	    <!-- Columna izquierda -->
-	    <div class="w-full lg:w-1/4 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
+	    <div class="lg:w-1/3 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
 	        <!-- información de contacto -->
 	        <div class="caja">
 	            <div class="titulo-caja">Información de contacto</div>
 	            <table class="contact-data">
-	                <tr>
-	                    <td><span class="nombre-elemento">País</span></td>
-	                    <td><span class="descripcion-elemento">España</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Comunidad</span></td>
-	                    <td><span class="descripcion-elemento">Andalucía</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Ciudad</span></td>
-	                    <td><span class="descripcion-elemento">Córdoba, Córdoba</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Dirección</span></td>
-	                    <td><span class="descripcion-elemento">C. Julio César, Córdoba, Córdoba 14007, ES</span></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Correo electrónico</span></td>
+                    <tr>
+	                    <td><span class="nombre-elemento">Email</span></td>
 	                    <td><a href="mailto:sg@uco.es"
 	                           class="descripcion-elemento"><%= profile.getMail() %></a></td>
 	                </tr>
@@ -59,21 +43,12 @@
 	                    <td><span class="nombre-elemento">Teléfono</span></td>
 	                    <td><span class="descripcion-elemento"><%= profile.getPhone() %></span></td>
 	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Sitio web</span></td>
-	                    <td><a href="http://www.paginafalsa.es/"
-	                           class="descripcion-elemento">paginafalsa.es</a></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Twitter</span></td>
-	                    <td><a href="https://twitter.com/angelsevilla"
-	                           class="descripcion-elemento">angelsevilla</a></td>
-	                </tr>
-	                <tr>
-	                    <td><span class="nombre-elemento">Linkedin</span></td>
-	                    <td><a href="https://www.linkedin.com/in/angelsevilla/"
-	                           class="descripcion-elemento">angelsevilla</a></td>
-	                </tr>
+	                <% for( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
+	                	<tr>
+		                    <td><span class="nombre-elemento"><%= contactInfo.getName() %></span></td>
+		                    <td><span class="descripcion-elemento"><%= contactInfo.getValue() %></span></td>
+	                	</tr>
+	                <% } %>
 	            </table>
 	        </div>
 	        <!-- Contactos -->

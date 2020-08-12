@@ -15,6 +15,7 @@ import es.uco.pw.data.dao.ExperienceDAO;
 public class EditExperienceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		int id = Integer.valueOf(request.getParameter("id"));
