@@ -387,7 +387,7 @@ a:hover {
 .imagen-perfil {
 	display: inline;
 	margin: 0 auto;
-	height: auto;
+	max-height: auto;
 	max-width: 100%;
 }
 
