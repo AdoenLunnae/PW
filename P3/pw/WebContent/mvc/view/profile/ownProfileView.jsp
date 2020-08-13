@@ -60,7 +60,7 @@
 	            </table>
 	            
 	            <% for( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
-	            	<form class="nodisplay" id= '<%="delete-contact-" + contactInfo.getId() %>'>
+	            	<form class="nodisplay" id= '<%="delete-contact-" + contactInfo.getId() %>' action='/pw/deleteContactInfo' method='post' accept-charset='UTF-8'>
 	                	<input type="hidden" name="id" value=<%= contactInfo.getId() %> >
 	                	<input type="hidden" name="mail" value=<%= profile.getMail() %> >
 	                </form>
@@ -387,7 +387,7 @@
 	           class="btn-cerrar-popup"
 	           onclick="cerrarPopUp('overlay4', 'popup4')"><i
 	                class="fas fa-times"></i></a>
-	        <h3>#21 Añadir Información</h3>
+	        <h3>#21 Añadir Formación</h3>
 	        <form action="javascript:void(0)">
 	            <div class="contenedor-inputs">
 	
@@ -588,6 +588,26 @@
 		    </div>
 		</div>
 	<% } %>
+	<!-- POP-UPS Fin Editar información de contacto-->
+	<!-- POP-UPS Editar información de contacto-->
+	<div class="overlay" id='<%= "overlay-contact-add" %>' >
+	    <div class="popup"  id='<%= "popup-contact-add" %>' >
+	        <h3>Editar información de contacto</h3>
+	        <form action="/pw/addContactInfo" method="post" accept-charset="utf-8">
+	            <div class="contenedor-inputs">
+					<input type="text" name='name' placeholder="Nombre" > 
+	                <input type="text" name='value' placeholder="Valor" >
+	                <input type="hidden" name='mail' value=<%= profile.getMail() %>>
+	            </div>
+	            <button type="button" class="btn-submit"  onclick="cerrarPopUp('overlay-contact-add', 'popup-contact-add')">
+	            	Volver
+	            </button>
+	            <button type="submit" class="btn-submit">
+	            	Aceptar
+	            </button>
+	        </form>
+	    </div>
+	</div>
 	<!-- POP-UPS Fin Editar información de contacto-->
 	<!-- POP-UPS Añadir Publicación-->
 	<div class="overlay"

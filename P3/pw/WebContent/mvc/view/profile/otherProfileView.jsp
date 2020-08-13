@@ -36,8 +36,11 @@
 	            <table class="contact-data">
                     <tr>
 	                    <td><span class="nombre-elemento">Email</span></td>
-	                    <td><a href="mailto:sg@uco.es"
-	                           class="descripcion-elemento"><%= profile.getMail() %></a></td>
+	                    <td>
+	                    	<a href="mailto:sg@uco.es" class="descripcion-elemento">
+	                    		<%= profile.getMail() %>
+	                    	</a>
+	                    </td>
 	                </tr>
 	                <tr>
 	                    <td><span class="nombre-elemento">Teléfono</span></td>

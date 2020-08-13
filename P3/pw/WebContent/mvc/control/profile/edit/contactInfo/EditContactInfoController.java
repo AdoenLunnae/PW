@@ -20,7 +20,7 @@ public class EditContactInfoController extends HttpServlet {
 		String value = request.getParameter("value");
 		int id = Integer.valueOf(request.getParameter("id"));
 		
-		ContactInfoDAO.update(id, name, value);
+		ContactInfoDAO.updateContactInfo(id, name, value);
 		
 		response.sendRedirect("/pw/profile?mail=" + request.getParameter("mail"));
 	}

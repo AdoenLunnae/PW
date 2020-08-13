@@ -44,7 +44,7 @@ public class ContactInfoDAO extends DAO{
 		return result;
 	}
 
-	public static int update(int id, String name, String value) {
+	public static int updateContactInfo(int id, String name, String value) {
 		int status = 0;
 		
 		try {
@@ -63,5 +63,46 @@ public class ContactInfoDAO extends DAO{
 		}
 		
 		return status;
+	}
+
+	public static int addContactInfo(String name, String value, String mail) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();
+			String insertQuery = "INSERT INTO ContactInfo (name, value, user_email) VALUES ( ? , ? , ?)";
+			PreparedStatement insertExp = con.prepareStatement(insertQuery);
+			
+			insertExp.setString(1, name);
+			insertExp.setString(2, value);
+			insertExp.setString(3, mail);
+			
+			status = insertExp.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+
+	public static int deleteContactInfo(int id) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();
+			String deleteQuery = "DELETE FROM ContactInfo WHERE id = ?";
+			PreparedStatement deleteExp = con.prepareStatement(deleteQuery);
+			
+			deleteExp.setInt(1, id);
+			
+			status = deleteExp.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+		
 	}
 }

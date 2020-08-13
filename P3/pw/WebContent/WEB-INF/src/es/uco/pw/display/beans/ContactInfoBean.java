@@ -1,7 +1,9 @@
 package es.uco.pw.display.beans;
 
+import java.io.Serializable;
 
-public class ContactInfoBean {
+public class ContactInfoBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private String name, value;
 	private int id;
