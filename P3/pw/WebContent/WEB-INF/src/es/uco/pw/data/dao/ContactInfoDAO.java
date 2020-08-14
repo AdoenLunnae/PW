@@ -13,9 +13,9 @@ public class ContactInfoDAO extends DAO{
 	private static Hashtable<String, String> hashtableFromResultSet(ResultSet data) throws SQLException {
 		Hashtable<String, String> hashtable = new Hashtable<String, String>();
 			
-		hashtable.put("id", data.getString("id"));
-		hashtable.put("name", data.getString("name"));
-		hashtable.put("value", data.getString("value"));
+		hashtable.put("id", data.getString("id")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("name", data.getString("name")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("value", data.getString("value")); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		return hashtable;
 	}
@@ -28,7 +28,7 @@ public class ContactInfoDAO extends DAO{
 		try {
 			Connection con = getConnection();
 			stmt = con.createStatement();
-			String query = "SELECT id, name, value FROM ContactInfo WHERE user_email = '" + userEmail + "'  ORDER BY 'name' ASC";
+			String query = Messages.getString("ContactInfoDAO.queryByMail1") + userEmail + Messages.getString("ContactInfoDAO.queryByMail2"); //$NON-NLS-1$ //$NON-NLS-2$
 			rs = stmt.executeQuery(query);
 			while (rs != null && rs.next()) {
 				current = hashtableFromResultSet(rs) ;
@@ -49,7 +49,7 @@ public class ContactInfoDAO extends DAO{
 		
 		try {
 			Connection con = getConnection();
-			String updateQuery = "UPDATE ContactInfo SET name = ? , value = ? WHERE id = ?";
+			String updateQuery = Messages.getString("ContactInfoDAO.updateQuery"); //$NON-NLS-1$
 			PreparedStatement updateExp = con.prepareStatement(updateQuery);
 			
 			updateExp.setString(1, name);
@@ -70,7 +70,7 @@ public class ContactInfoDAO extends DAO{
 		
 		try {
 			Connection con = getConnection();
-			String insertQuery = "INSERT INTO ContactInfo (name, value, user_email) VALUES ( ? , ? , ?)";
+			String insertQuery = Messages.getString("ContactInfoDAO.insertQuery"); //$NON-NLS-1$
 			PreparedStatement insertExp = con.prepareStatement(insertQuery);
 			
 			insertExp.setString(1, name);
@@ -91,7 +91,7 @@ public class ContactInfoDAO extends DAO{
 		
 		try {
 			Connection con = getConnection();
-			String deleteQuery = "DELETE FROM ContactInfo WHERE id = ?";
+			String deleteQuery = Messages.getString("ContactInfoDAO.deleteQuery"); //$NON-NLS-1$
 			PreparedStatement deleteExp = con.prepareStatement(deleteQuery);
 			
 			deleteExp.setInt(1, id);

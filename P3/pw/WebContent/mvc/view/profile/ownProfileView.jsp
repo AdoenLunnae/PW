@@ -10,7 +10,7 @@
 	
 	<link rel="stylesheet" href="/pw/css/popups.css">
 	<script type="text/javascript" src="/pw/js/popup.js"></script>
-	<script type="text/javascript" src="/pw/js/submitForm.js"></script>
+	<script type="text/javascript" src="/pw/js/editUtilities.js"></script>
 </head>
 <body>
 	<jsp:include page="/include/header.jsp"/>
@@ -18,7 +18,8 @@
 	    <div class="contenedor-cabecera">
 	        <div class="w-1/4">
 	            <div class="circle-crop ml-6 -mt-5">
-	            	<img src= "<%= "data:image/jpeg;base64, " + profile.getBase64Image() %>" alt="logo" class="imagen-perfil"/>
+	            	<img class="imagen-perfil" src= "<%= "data:image/jpeg;base64, " + profile.getBase64Image() %>" 
+	            		alt="Foto de perfil" onClick="abrirPopUp('overlay-pic', 'popup-pic')"/>
 	            </div>
 	        </div>
 	        <div class="informacion-contacto ml-12">
@@ -461,7 +462,7 @@
 	        </form>
 	    </div>
 	</div>
-	<!-- POP-UPS Fin Editar información-->
+	<!-- POP-UPS Fin Editar formación-->
 	
 	
 	
@@ -520,52 +521,6 @@
 	<% } %>
 	
 	<!-- POP-UPS Fin Editar Experiencia-->
-	<!-- POP-UPS Añadir Patente-->
-	<div class="overlay"
-	     id="overlay8">
-	    <div class="popup"
-	         id="popup8">
-	        <a href="#"
-	           id="btn-cerrar-popup8"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay8', 'popup8')"><i
-	                class="fas fa-times"></i></a>
-	        <h3>Añadir patente</h3>
-	        <form action="javascript:void(0)">
-	            <div class="contenedor-inputs">
-	                <input type="text"
-	                       placeholder="Nombre">
-	                <input type="text"
-	                       placeholder="Enlace">
-	                <textarea name="textarea"
-	                          placeholder="Descripción"
-	                          rows="10"
-	                          cols="50"></textarea>
-	                <h4>Añadir patente</h4>
-	                <div id="popup49">
-	                    <input type="text"
-	                           placeholder="Nombre">
-	                    <button type="button"
-	                            onclick="addNodo('container')"><i class="fas fa-plus"></i></button>
-	                    <button type="button"
-	                            onclick="deleteNodo('container')"><i class="fas fa-minus"></i></button>
-	                    <div id="container"></div>
-	                </div>
-	
-	            </div>
-	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay8', 'popup8')">Volver
-	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay8', 'popup8')">Aceptar
-	            </button>
-	        </form>
-	    </div>
-	</div>
-	<!-- POP-UPS Fin Añadir Patente-->
 	<!-- POP-UPS Editar información de contacto-->
 	<% for ( es.uco.pw.display.beans.ContactInfoBean contactInfo : profile.getAllContactInfo() ) { %>
 		<div class="overlay" id='<%= "overlay-contact-" + contactInfo.getId() %>' >
@@ -589,6 +544,7 @@
 		</div>
 	<% } %>
 	<!-- POP-UPS Fin Editar información de contacto-->
+	
 	<!-- POP-UPS Editar información de contacto-->
 	<div class="overlay" id='<%= "overlay-contact-add" %>' >
 	    <div class="popup"  id='<%= "popup-contact-add" %>' >
@@ -609,6 +565,7 @@
 	    </div>
 	</div>
 	<!-- POP-UPS Fin Editar información de contacto-->
+	
 	<!-- POP-UPS Añadir Publicación-->
 	<div class="overlay"
 	     id="overlay10">
@@ -707,81 +664,22 @@
 	    </div>
 	</div>
 	<!-- POP-UPS Fin Editar Publicación-->
-	<!-- POP-UPS Editar Patente-->
-	<div class="overlay"
-	     id="overlay11">
-	    <div class="popup"
-	         id="popup11">
-	        <a href="#"
-	           id="btn-cerrar-popup11"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay11', 'popup11')"><i
-	                class="fas fa-times"></i></a>
-	        <h3>Editar Patente</h3>
-	        <form action="javascript:void(0)">
-	            <div class="contenedor-inputs">
-	                <input type="text"
-	                       placeholder="Nombre">
-	                <input type="text"
-	                       placeholder="Enlace">
-	                <textarea name="textarea"
-	                          placeholder="Descripción"
-	                          rows="10"
-	                          cols="50"></textarea>
-	                <h4>Colaboradores</h4>
-	                <div id="popup51">
-	                    <div class="estilotam3">
-	                        <input type="text"
-	                               placeholder="Nombre">
-	                        <button type="button"
-	                                onclick="addNodo('container1')"><i class="fas fa-plus"></i></button>
-	                        <button type="button"
-	                                onclick="deleteNodo('container1')"><i class="fas fa-minus"></i></button>
-	                    </div>
-	                    <div id="container1"></div>
-	                </div>
-	            </div>
-	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay11', 'popup11')">Volver
-	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay11', 'popup11')">Aceptar
-	            </button>
-	
-	        </form>
-	    </div>
-	</div>
-	<!-- POP-UPS Fin Editar Patente-->
 	<!-- POP-UPS Editar Foto-->
-	<div class="overlay"
-	     id="overlay13">
-	    <div class="popup"
-	         id="popup13">
-	        <a href="#"
-	           id="btn-cerrar-popup13"
-	           class="btn-cerrar-popup"
-	           onclick="cerrarPopUp('overlay13', 'popup13')"><i
-	                class="fas fa-times"></i></a>
+	<div class="overlay" id="overlay-pic">
+	    <div class="popup" id="popup-pic">
 	        <h3>Editar Foto</h3>
-	        <a href="#"><img src="/pw/img/perfil.png"
-	                         alt="avatar"></a>
-	        <form action="javascript:void(0)">
-	            <h4>Seleccione la foto de perfil</h4>
-	            <div class="contenedor-2">
-	                <input type="file"
-	                       name="archivosubido">
-	            </div>
-	            <!--<Hemos puesto la función de cerrar popups hasta que se tenga la función>-->
-	            <button type="button"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay13', 'popup13')">Volver
+	        <form action="/pw/editProfilePic" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+		        <div class="contenedor2">
+	                <input class="fileinput" type="file" id="newPhoto" name="newPhoto" accept="image/*" onChange="showPreview(this)">
+	                <label for="newPhoto">Seleccione archivo</label>
+		            <img id="pic-preview" src="http://placehold.it/200" alt="Nueva Foto"></img>
+	                <input type="hidden" name="mail" value='<%= profile.getMail() %>'>
+		        </div>
+	            <button type="button" class="btn-submit" onclick="cerrarPopUp('overlay-pic', 'popup-pic')">
+	            	Volver
 	            </button>
-	            <button type="submit"
-	                    class="btn-submit"
-	                    onclick="cerrarPopUp('overlay13', 'popup13')">Aceptar
+	            <button type="submit" class="btn-submit">
+	            	Aceptar
 	            </button>
 	        </form>
 	    </div>

@@ -16,12 +16,12 @@ public class ExperienceDAO extends DAO {
 	private static Hashtable<String, String> hashtableFromResultSet(ResultSet data) throws SQLException {
 		Hashtable<String, String> hashtable = new Hashtable<String, String>();
 			
-		hashtable.put("id", data.getString("id"));
-		hashtable.put("start", data.getString("start"));
-		hashtable.put("end", data.getString("end"));
-		hashtable.put("nombre", data.getString("nombre"));
-		hashtable.put("descripcion", data.getString("descripcion"));
-		hashtable.put("lugar", data.getString("lugar"));
+		hashtable.put("id", data.getString("id")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("start", data.getString("start")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("end", data.getString("end")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("nombre", data.getString("nombre")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("descripcion", data.getString("descripcion")); //$NON-NLS-1$ //$NON-NLS-2$
+		hashtable.put("lugar", data.getString("lugar")); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		return hashtable;
 	}
@@ -34,7 +34,7 @@ public class ExperienceDAO extends DAO {
 		try {
 			Connection con = getConnection();
 			stmt = con.createStatement();
-			String query = "SELECT id, start, end, nombre, descripcion, lugar FROM Experiences WHERE user_email = '" + userMail + "'  ORDER BY 'start', 'end' ASC";
+			String query = Messages.getString("ExperienceDAO.queryByMail1") + userMail + Messages.getString("ExperienceDAO.queryByMail2"); //$NON-NLS-1$ //$NON-NLS-2$
 			rs = stmt.executeQuery(query);
 			while (rs != null && rs.next()) {
 				current = hashtableFromResultSet(rs);
@@ -55,7 +55,7 @@ public class ExperienceDAO extends DAO {
 		PreparedStatement updateExp = null;
 		try {
 			Connection con = getConnection();
-			String updateQuery = "UPDATE Experiences SET nombre = ?, descripcion = ?, lugar = ?, start = ?, end = ? WHERE id = ?";
+			String updateQuery = Messages.getString("ExperienceDAO.updateQuery"); //$NON-NLS-1$
 			updateExp = con.prepareStatement(updateQuery);
 			
 			updateExp.setString(1, nombre);
@@ -78,7 +78,7 @@ public class ExperienceDAO extends DAO {
 		PreparedStatement insertExp = null;
 		try {
 			Connection con = getConnection();
-			String insertQuery = "INSERT INTO Experiences (user_email, nombre, descripcion, lugar, start, end)  VALUES ( ? , ? , ? , ? , ? , ? )";
+			String insertQuery = Messages.getString("ExperienceDAO.insertQuery"); //$NON-NLS-1$
 			insertExp = con.prepareStatement(insertQuery);
 			
 			insertExp.setString(1, mail);
@@ -102,7 +102,7 @@ public class ExperienceDAO extends DAO {
 		PreparedStatement deleteExp = null;
 		try {
 			Connection con = getConnection();
-			String deleteQuery = "DELETE FROM Experiences WHERE id = ?";
+			String deleteQuery = Messages.getString("ExperienceDAO.deleteQuery"); //$NON-NLS-1$
 			deleteExp = con.prepareStatement(deleteQuery);
 			
 			deleteExp.setInt(1, id);
