@@ -22,6 +22,6 @@ public class EditAboutController extends HttpServlet {
 		String mail = request.getParameter("mail"); //$NON-NLS-1$
 		UserDAO.updateAboutMe(mail, aboutMe);
 		
-		response.sendRedirect(Messages.getString("EditAboutController.General.profile") + mail); //$NON-NLS-1$
+		response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
 	}
 }

@@ -22,7 +22,7 @@ public class RegisterController extends HttpServlet {
 	private Boolean checkNotLogged(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
-		return (customer == null || customer.getIdRol() == Messages.getString("RegisterController.GuestRoleName")); //$NON-NLS-1$
+		return (customer == null || customer.getIdRol() == Messages.getString("General.guestRoleName")); //$NON-NLS-1$
 	}
 
 	private Boolean checkEmptyArgs(String nombre, String apellidos, String mail, String password, String telefono)
@@ -49,7 +49,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerErrorPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("RegisterController.registerErrorPage")); //$NON-NLS-1$
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("Pages.registerErrorPage")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -58,7 +58,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerSuccessPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("RegisterController.registerSuccessPage")); //$NON-NLS-1$
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("Pages.registerSuccessPage")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -99,7 +99,7 @@ public class RegisterController extends HttpServlet {
 		if(customer == null) {
 			customer = new CustomerBean();
 		}
-		customer.setIdRol(Messages.getString("RegisterController.UserRoleName")); //$NON-NLS-1$
+		customer.setIdRol(Messages.getString("General.userRoleName")); //$NON-NLS-1$
 		customer.setMail(mail);
 		session.setAttribute("customer", customer); //$NON-NLS-1$
 		register(nombre, apellidos, mail, password, telefono);

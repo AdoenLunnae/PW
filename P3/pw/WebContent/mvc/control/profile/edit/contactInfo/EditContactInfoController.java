@@ -1,5 +1,6 @@
 package control.profile.edit.contactInfo;
 
+import messages.Messages;
 import java.io.IOException;
 
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +16,14 @@ public class EditContactInfoController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String value = request.getParameter("value");
-		int id = Integer.valueOf(request.getParameter("id"));
+		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
+		String name = request.getParameter("name"); //$NON-NLS-1$
+		String value = request.getParameter("value"); //$NON-NLS-1$
+		int id = Integer.valueOf(request.getParameter("id")); //$NON-NLS-1$
 		
 		ContactInfoDAO.updateContactInfo(id, name, value);
 		
-		response.sendRedirect("/pw/profile?mail=" + request.getParameter("mail"));
+		response.sendRedirect(Messages.getString("General.profile") + request.getParameter("mail")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

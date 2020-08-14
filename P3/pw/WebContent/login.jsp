@@ -11,7 +11,7 @@
 	<jsp:include page="/include/header.jsp" />
 	<div class="contentaux">
 	<div class="login" id="login">
-		<form action="loginAttempt" method="POST" accept-charset="UTF-8">
+		<form action="<%= messages.Messages.getString("General.webRoot") %>loginAttempt" method="POST" accept-charset="UTF-8">
 			<div class="user-img">
                    <img src="./img/user.png" alt="Avatar"/>
                </div>
@@ -23,7 +23,7 @@
                </div>
 			<div class="boton-entrar" id="boton1">
 				<input type="submit" value="Entrar">
-				<input type="button" onclick="window.location.href = './registro.jsp'" value="Registrar">
+				<input type="button" onclick="window.location.href = '<%= messages.Messages.getString("Pages.registerPage") %>'" value="Registrar">
 			</div>
 		
 		</form>

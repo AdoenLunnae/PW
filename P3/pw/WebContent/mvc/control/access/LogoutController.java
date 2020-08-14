@@ -20,10 +20,10 @@ public class LogoutController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
-		customer = new CustomerBean("", Messages.getString("LogoutController.guestRoleName")); //$NON-NLS-1$ //$NON-NLS-2$
+		customer = new CustomerBean("", Messages.getString("General.guestRoleName")); //$NON-NLS-1$ //$NON-NLS-2$
 		session.setAttribute("customer", customer); //$NON-NLS-1$
 		
-		response.sendRedirect(Messages.getString("LogoutController.loginPage")); //$NON-NLS-1$
+		response.sendRedirect(Messages.getString("Pages.loginPage")); //$NON-NLS-1$
 		return;
 	}
 }

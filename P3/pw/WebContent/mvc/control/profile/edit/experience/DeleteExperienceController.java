@@ -1,5 +1,6 @@
 package control.profile.edit.experience;
 
+import messages.Messages;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,11 +29,11 @@ public class DeleteExperienceController extends HttpServlet {
 	*/
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-    	int id = Integer.valueOf(request.getParameter("id"));
+		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
+    	int id = Integer.valueOf(request.getParameter("id")); //$NON-NLS-1$
     	ExperienceDAO.deleteExperience(id);
     	
-    	response.sendRedirect("/pw/profile?mail=" + request.getParameter("mail"));
+    	response.sendRedirect(Messages.getString("General.profile") + request.getParameter("mail")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

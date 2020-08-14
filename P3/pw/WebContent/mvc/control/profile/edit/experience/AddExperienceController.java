@@ -1,5 +1,6 @@
 package control.profile.edit.experience;
 
+import messages.Messages;
 import java.io.IOException;
 import java.sql.Date;
 
@@ -17,16 +18,16 @@ public class AddExperienceController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("UTF-8");
-		String mail = request.getParameter("mail");
-		String lugar = request.getParameter("lugar");
-		String nombre = request.getParameter("nombre"); 
-		String descripcion = request.getParameter("descripcion");
-		Date start = Date.valueOf(request.getParameter("start")), end = Date.valueOf(request.getParameter("end"));
+		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
+		String mail = request.getParameter("mail"); //$NON-NLS-1$
+		String lugar = request.getParameter("lugar"); //$NON-NLS-1$
+		String nombre = request.getParameter("nombre");  //$NON-NLS-1$
+		String descripcion = request.getParameter("descripcion"); //$NON-NLS-1$
+		Date start = Date.valueOf(request.getParameter("start")), end = Date.valueOf(request.getParameter("end")); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		ExperienceDAO.addExperience(mail, nombre, descripcion, lugar, start, end);
 		
-		response.sendRedirect("/pw/profile?mail=" + mail);
+		response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
 	}
 
 }

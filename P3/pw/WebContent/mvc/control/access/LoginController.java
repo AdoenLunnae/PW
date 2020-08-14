@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
 	private Boolean userIsLogged(CustomerBean customer) {
-		return (customer != null && !customer.getIdRol().equals(Messages.getString("LoginController.guestRoleName"))); //$NON-NLS-1$
+		return (customer != null && !customer.getIdRol().equals(Messages.getString("General.guestRoleName"))); //$NON-NLS-1$
 	}
 
 	/*
@@ -63,15 +63,15 @@ public class LoginController extends HttpServlet {
 		 catch (Exception e) {
 			 e.printStackTrace();
 		 }
-		 customer = new CustomerBean(mail, Messages.getString("LoginController.userRoleName")); //$NON-NLS-1$
+		 customer = new CustomerBean(mail, Messages.getString("General.userRoleName")); //$NON-NLS-1$
 		 session.setAttribute("customer", customer); //$NON-NLS-1$
-		 response.sendRedirect(Messages.getString("LoginController.profile") + mail); //$NON-NLS-1$
+		 response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
 		 return;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("LoginController.ownProfile")); //$NON-NLS-1$
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("Pages.ownProfile")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
