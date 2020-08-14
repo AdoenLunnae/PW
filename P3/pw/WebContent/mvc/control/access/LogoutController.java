@@ -1,5 +1,6 @@
 package control.access;
 
+import messages.Messages;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,11 +19,11 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-		customer = new CustomerBean("", "Guest");
-		session.setAttribute("customer", customer);
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
+		customer = new CustomerBean("", Messages.getString("LogoutController.guestRoleName")); //$NON-NLS-1$ //$NON-NLS-2$
+		session.setAttribute("customer", customer); //$NON-NLS-1$
 		
-		response.sendRedirect("/pw/login.jsp");
+		response.sendRedirect(Messages.getString("LogoutController.loginPage")); //$NON-NLS-1$
 		return;
 	}
 }

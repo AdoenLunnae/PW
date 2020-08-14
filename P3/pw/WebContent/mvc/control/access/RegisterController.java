@@ -1,5 +1,6 @@
 package control.access;
 
+import messages.Messages;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -20,8 +21,8 @@ public class RegisterController extends HttpServlet {
 
 	private Boolean checkNotLogged(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-		return (customer == null || customer.getIdRol() == "Guest");
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
+		return (customer == null || customer.getIdRol() == Messages.getString("RegisterController.GuestRoleName")); //$NON-NLS-1$
 	}
 
 	private Boolean checkEmptyArgs(String nombre, String apellidos, String mail, String password, String telefono)
@@ -39,7 +40,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void backToRegister(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher("/registro.jsp");
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("RegisterController.registerPage")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -48,7 +49,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerErrorPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/access/registerErrorView.jsp");
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("RegisterController.registerErrorPage")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -57,7 +58,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private void registerSuccessPage(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/access/registerSuccessView.jsp");
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("RegisterController.registerSuccessPage")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {
@@ -66,7 +67,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private int register(String nombre, String apellidos, String mail, String password, String telefono) {
-		return UserDAO.create(mail, password, nombre + " " + apellidos, telefono);
+		return UserDAO.create(mail, password, nombre + " " + apellidos, telefono); //$NON-NLS-1$
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -76,12 +77,12 @@ public class RegisterController extends HttpServlet {
 			registerErrorPage(request, response);
 			return;
 		}
-		request.setCharacterEncoding("UTF-8");
-		String nombre = request.getParameter("nombre");
-		String apellidos = request.getParameter("apellidos");
-		String mail = request.getParameter("correo");
-		String password = request.getParameter("password");
-		String telefono = request.getParameter("numero");
+		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
+		String nombre = request.getParameter("nombre"); //$NON-NLS-1$
+		String apellidos = request.getParameter("apellidos"); //$NON-NLS-1$
+		String mail = request.getParameter("correo"); //$NON-NLS-1$
+		String password = request.getParameter("password"); //$NON-NLS-1$
+		String telefono = request.getParameter("numero"); //$NON-NLS-1$
 
 		if (!checkEmptyArgs(nombre, apellidos, mail, password, telefono)) {
 			backToRegister(request, response);
@@ -94,13 +95,13 @@ public class RegisterController extends HttpServlet {
 		}
 
 		HttpSession session = request.getSession();
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
 		if(customer == null) {
 			customer = new CustomerBean();
 		}
-		customer.setIdRol("User");
+		customer.setIdRol(Messages.getString("RegisterController.UserRoleName")); //$NON-NLS-1$
 		customer.setMail(mail);
-		session.setAttribute("customer", customer);
+		session.setAttribute("customer", customer); //$NON-NLS-1$
 		register(nombre, apellidos, mail, password, telefono);
 		registerSuccessPage(request, response);
 

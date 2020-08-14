@@ -1,5 +1,6 @@
 package control.access;
 
+import messages.Messages;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -19,7 +20,7 @@ public class LoginController extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
 	private Boolean userIsLogged(CustomerBean customer) {
-		return (customer != null && !customer.getIdRol().equals("Guest"));
+		return (customer != null && !customer.getIdRol().equals(Messages.getString("LoginController.guestRoleName"))); //$NON-NLS-1$
 	}
 
 	/*
@@ -32,22 +33,22 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
 		
 		if (userIsLogged(customer)) {
 			// loginErrorPage(request, response);
 			return;
 		}
 
-		String mail = request.getParameter("correo"); 
-		String password = request.getParameter("password"); 
+		String mail = request.getParameter("correo");  //$NON-NLS-1$
+		String password = request.getParameter("password");  //$NON-NLS-1$
 		 
 		/* if (!checkEmptyArgs(mail, password)) {
 		 * backToLogin(request, response); return; } 
 		 */
 		try {
 			if (!UserDAO.mailExists(mail)) {
-				System.out.println("Email inexistente");
+				System.out.println("Email inexistente"); //$NON-NLS-1$
 				return; 
 			}
 		} catch (SQLException e) {
@@ -56,21 +57,21 @@ public class LoginController extends HttpServlet {
 		 
 		 try {
 			 if (!UserDAO.checkPass(mail, password)) { 
-				 System.out.println("Contraseña incorrecta");
+				 System.out.println("Contraseña incorrecta"); //$NON-NLS-1$
 				 return; }
 		 }
 		 catch (Exception e) {
 			 e.printStackTrace();
 		 }
-		 customer = new CustomerBean(mail, "User");
-		 session.setAttribute("customer", customer);
-		 response.sendRedirect("/pw/profile?mail=" + mail);
+		 customer = new CustomerBean(mail, Messages.getString("LoginController.userRoleName")); //$NON-NLS-1$
+		 session.setAttribute("customer", customer); //$NON-NLS-1$
+		 response.sendRedirect(Messages.getString("LoginController.profile") + mail); //$NON-NLS-1$
 		 return;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher req = request.getRequestDispatcher("/mvc/view/ownProfileView.jsp");
+		RequestDispatcher req = request.getRequestDispatcher(Messages.getString("LoginController.ownProfile")); //$NON-NLS-1$
 		try {
 			req.include(request, response);
 		} catch (ServletException | IOException e) {

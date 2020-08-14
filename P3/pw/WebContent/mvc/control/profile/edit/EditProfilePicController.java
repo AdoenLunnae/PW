@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import es.uco.pw.data.dao.UserDAO;
+import messages.Messages;
 
 
 @WebServlet("/editProfilePic")
@@ -24,14 +25,14 @@ public class EditProfilePicController extends HttpServlet {
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("UTF-8");
-		Part filePart = request.getPart("newPhoto"); // Retrieves <input type="file" name="file">
+	    request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
+		Part filePart = request.getPart("newPhoto"); // Retrieves <input type="file" name="file"> //$NON-NLS-1$
 	    InputStream pic = filePart.getInputStream();
-	    String mail = request.getParameter("mail");
+	    String mail = request.getParameter("mail"); //$NON-NLS-1$
 	    
 	    UserDAO.updatePic(mail, pic);
 	    
-	    response.sendRedirect("/pw/profile?mail=" + mail);
+	    response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
 	}
 
 }

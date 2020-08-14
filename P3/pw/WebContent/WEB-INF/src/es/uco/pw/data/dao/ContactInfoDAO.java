@@ -1,5 +1,6 @@
 package es.uco.pw.data.dao;
 
+import messages.Messages;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

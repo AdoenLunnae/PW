@@ -1,5 +1,6 @@
 package es.uco.pw.data.dao;
 
+import messages.Messages;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

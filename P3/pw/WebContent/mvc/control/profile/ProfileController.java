@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 //import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ProfileBean;
+import messages.Messages;
 import es.uco.pw.display.beans.ContactInfoBean;
 import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ExperienceBean;
@@ -34,12 +35,12 @@ public class ProfileController extends HttpServlet {
 		ExperienceBean currentExperience = null;
 		for (Hashtable<String,String> databaseResult : databaseResults) {
 			currentExperience = new ExperienceBean();
-			currentExperience.setId(Integer.valueOf(databaseResult.get("id")));
-			currentExperience.setStart(Date.valueOf(databaseResult.get("start")));
-			currentExperience.setEnd(Date.valueOf(databaseResult.get("end")));
-			currentExperience.setNombre(databaseResult.get("nombre"));
-			currentExperience.setDescripcion(databaseResult.get("descripcion"));
-			currentExperience.setLugar(databaseResult.get("lugar"));
+			currentExperience.setId(Integer.valueOf(databaseResult.get("id"))); //$NON-NLS-1$
+			currentExperience.setStart(Date.valueOf(databaseResult.get("start"))); //$NON-NLS-1$
+			currentExperience.setEnd(Date.valueOf(databaseResult.get("end"))); //$NON-NLS-1$
+			currentExperience.setNombre(databaseResult.get("nombre")); //$NON-NLS-1$
+			currentExperience.setDescripcion(databaseResult.get("descripcion")); //$NON-NLS-1$
+			currentExperience.setLugar(databaseResult.get("lugar")); //$NON-NLS-1$
 			result.add(currentExperience);
 		}
 		return result;
@@ -51,9 +52,9 @@ public class ProfileController extends HttpServlet {
 		ContactInfoBean currentInfo = null;
 		for (Hashtable<String,String> databaseResult : databaseResults) {
 			currentInfo = new ContactInfoBean(
-											Integer.valueOf(databaseResult.get("id")), 
-											databaseResult.get("name"), 
-											databaseResult.get("value")
+											Integer.valueOf(databaseResult.get("id")),  //$NON-NLS-1$
+											databaseResult.get("name"),  //$NON-NLS-1$
+											databaseResult.get("value") //$NON-NLS-1$
 										);
 			result.add(currentInfo);
 		}
@@ -66,7 +67,7 @@ public class ProfileController extends HttpServlet {
 	    for( char c : original.toCharArray() ) {
 	        if( c == ' ' ) {
 	            if( previousWasASpace ) {
-	                builder.append("&nbsp;");
+	                builder.append("&nbsp;"); //$NON-NLS-1$
 	                previousWasASpace = false;
 	                continue;
 	            }
@@ -75,18 +76,18 @@ public class ProfileController extends HttpServlet {
 	            previousWasASpace = false;
 	        }
 	        switch(c) {
-	            case '<': builder.append("&lt;"); break;
-	            case '>': builder.append("&gt;"); break;
-	            case '&': builder.append("&amp;"); break;
-	            case '"': builder.append("&quot;"); break;
-	            case '\n': builder.append("<br>"); break;
+	            case '<': builder.append("&lt;"); break; //$NON-NLS-1$
+	            case '>': builder.append("&gt;"); break; //$NON-NLS-1$
+	            case '&': builder.append("&amp;"); break; //$NON-NLS-1$
+	            case '"': builder.append("&quot;"); break; //$NON-NLS-1$
+	            case '\n': builder.append("<br>"); break; //$NON-NLS-1$
 	            // We need Tab support here, because we print StackTraces as HTML
-	            case '\t': builder.append("&nbsp; &nbsp; &nbsp;"); break;  
+	            case '\t': builder.append("&nbsp; &nbsp; &nbsp;"); break;   //$NON-NLS-1$
 	            default:
 	                if( c < 128 ) {
 	                    builder.append(c);
 	                } else {
-	                    builder.append("&#").append((int)c).append(";");
+	                    builder.append("&#").append((int)c).append(";"); //$NON-NLS-1$ //$NON-NLS-2$
 	                }    
 	        }
 	    }
@@ -96,29 +97,29 @@ public class ProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String mail = request.getParameter("mail");
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		String mail = request.getParameter("mail"); //$NON-NLS-1$
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
 		if(customer == null || customer.getMail() == null || customer.getIdRol() == null) {
-			customer = new CustomerBean("", "Guest");
-			session.setAttribute("customer", customer);
+			customer = new CustomerBean("", Messages.getString("General.guestRoleName")); //$NON-NLS-1$ //$NON-NLS-2$
+			session.setAttribute("customer", customer); //$NON-NLS-1$
 		}
 		Hashtable<String,String> userData = UserDAO.queryByMail(mail);
 		ArrayList<ExperienceBean> experiences = getExperiences(mail);
 		ArrayList<ContactInfoBean> contactInfo = getContactInfo(mail);
 		ProfileBean profile = new ProfileBean();
 		profile.setMail(mail);
-		profile.setName(userData.get("name"));
-		profile.setAboutMe(userData.get("aboutme"));
-		profile.setPhone(userData.get("phone"));
+		profile.setName(userData.get("name")); //$NON-NLS-1$
+		profile.setAboutMe(userData.get("aboutme")); //$NON-NLS-1$
+		profile.setPhone(userData.get("phone")); //$NON-NLS-1$
 		profile.setExperiences(experiences);
 		profile.setAllContactInfo(contactInfo);
-		profile.setBase64Image(userData.get("image"));
-		profile.setParsedAboutMe(parseToHTML(userData.get("aboutme")));
-		session.setAttribute("profile", profile);
+		profile.setBase64Image(userData.get("image")); //$NON-NLS-1$
+		profile.setParsedAboutMe(parseToHTML(userData.get("aboutme"))); //$NON-NLS-1$
+		session.setAttribute("profile", profile); //$NON-NLS-1$
 		
 		RequestDispatcher rd = (customer.getMail().equals(mail)) 
-				? request.getRequestDispatcher("/mvc/view/profile/ownProfileView.jsp")
-				: request.getRequestDispatcher("/mvc/view/profile/otherProfileView.jsp");
+				? request.getRequestDispatcher(Messages.getString("Pages.ownProfile")) //$NON-NLS-1$
+				: request.getRequestDispatcher(Messages.getString("Pages.otherProfile")); //$NON-NLS-1$
 		try {
 			rd.include(request, response);
 		} catch (ServletException | IOException e) {

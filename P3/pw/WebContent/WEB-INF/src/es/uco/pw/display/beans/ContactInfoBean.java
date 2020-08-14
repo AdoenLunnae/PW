@@ -10,8 +10,8 @@ public class ContactInfoBean implements Serializable{
 	
     public ContactInfoBean() {
 		this.id = 0;
-        this.name = "";
-        this.value = "";
+        this.name = ""; //$NON-NLS-1$
+        this.value = ""; //$NON-NLS-1$
     }
     
 	public ContactInfoBean(int id, String name, String value) {

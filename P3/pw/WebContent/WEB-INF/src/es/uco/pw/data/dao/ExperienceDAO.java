@@ -1,5 +1,6 @@
 package es.uco.pw.data.dao;
 
+import messages.Messages;
 import java.util.Hashtable;
 
 

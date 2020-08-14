@@ -8,8 +8,8 @@ public class CustomerBean implements Serializable {
 	private String mail, idRol;
 
 	public CustomerBean() {
-		this.mail = "";
-		this.idRol = "Guest";
+		this.mail = ""; //$NON-NLS-1$
+		this.idRol = "Guest"; //$NON-NLS-1$
 	}
 
 	public CustomerBean(String mail, String idRol) {
