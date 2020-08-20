@@ -1,8 +1,6 @@
 package control.access;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,12 +29,7 @@ public class RegisterController extends HttpServlet {
 	}
 
 	private Boolean mailIsUnique(String mail) {
-		try {
-			return (!UserDAO.mailExists(mail));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+		return (!UserDAO.mailExists(mail));
 	}
 
 	private int register(String nombre, String apellidos, String mail, String password, String telefono) {
@@ -52,7 +45,7 @@ public class RegisterController extends HttpServlet {
 			rd.include(request, response);
 			return;
 		}
-		
+
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
 		String nombre = request.getParameter("nombre"); //$NON-NLS-1$
 		String apellidos = request.getParameter("apellidos"); //$NON-NLS-1$
@@ -74,17 +67,17 @@ public class RegisterController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
-		if(customer == null) 
+		if (customer == null)
 			customer = new CustomerBean();
-		
+
 		customer.setIdRol(Messages.getString("General.userRoleName")); //$NON-NLS-1$
 		customer.setMail(mail);
 		session.setAttribute("customer", customer); //$NON-NLS-1$
 		register(nombre, apellidos, mail, password, telefono);
-		
+
 		rd = request.getRequestDispatcher(Messages.getString("Pages.registerSuccessPage")); //$NON-NLS-1$
 		rd.include(request, response);
-		
+
 		return;
 	}
 

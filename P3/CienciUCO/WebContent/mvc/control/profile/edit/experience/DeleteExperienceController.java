@@ -14,27 +14,29 @@ import messages.Messages;
 /**
  * Servlet implementation class DeleteExperienceController
  */
-@WebServlet(name ="DeleteExperienceController", value = "/deleteExperience")
+@WebServlet(name = "DeleteExperienceController", value = "/deleteExperience")
 public class DeleteExperienceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteExperienceController() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	*/
-    @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DeleteExperienceController() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
-    	int id = Integer.valueOf(request.getParameter("id")); //$NON-NLS-1$
-    	ExperienceDAO.deleteExperience(id);
-    	
-    	response.sendRedirect(Messages.getString("General.profile") + request.getParameter("mail")); //$NON-NLS-1$ //$NON-NLS-2$
+		int id = Integer.valueOf(request.getParameter("id")); //$NON-NLS-1$
+		ExperienceDAO.deleteExperience(id);
+
+		response.sendRedirect(Messages.urlFromKey("General.profile") + request.getParameter("mail")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

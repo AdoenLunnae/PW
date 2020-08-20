@@ -2,19 +2,22 @@
 
 
 <jsp:useBean id="customer" class="es.uco.pw.display.beans.CustomerBean" scope="session"/>
+<% if(customer.getMail() == null){
+	customer = new es.uco.pw.display.beans.CustomerBean("", "Guest");
+	session.setAttribute("customer", customer);
+} %>
 <header>
 	<div class="row">
 	    <div class="logo" onclick="window.location.href='../pages/home.html'">
-	    	<img src="<%= Messages.urlFromKey("General.logoPath") %>" alt="Logo No Cargado"></img>
+	    	<a href='<% out.println(customer.getMail().equals("")?"#":Messages.urlFromKey("General.profile") + customer.getMail()); %>'>
+	    		<img src="<%= Messages.urlFromKey("General.logoPath") %>" alt="Logo No Cargado"></img>
+	    	</a>
 	    </div>
 	    <nav>
 	    	<div class="col-3">
 	    		<% 
 	    		String target, text;
-	    		if(customer.getMail() == null){
-	    			customer = new es.uco.pw.display.beans.CustomerBean("", "Guest");
-	    			session.setAttribute("customer", customer);
-	    		}
+	    		
 	    		
 	    		if(customer.getIdRol().equals("Guest")){
 	    			target = Messages.urlFromKey("Pages.loginPage");

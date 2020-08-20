@@ -16,18 +16,18 @@ public class Messages {
 		try {
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {
-			return '!' + key + '!'; //$NON-NLS-1$
+			return '!' + key + '!';
 		}
 	}
-	
+
 	public static String getString(String key, String param) {
 		try {
 			return MessageFormat.format(getString(key), param);
 		} catch (MissingResourceException e) {
-			return '!' + key + '!'; //$NON-NLS-1$
+			return '!' + key + '!';
 		}
 	}
-	
+
 	public static String buildURL(String secondPart) {
 		try {
 			return getString("General.webRoot") + secondPart; //$NON-NLS-1$
@@ -35,12 +35,12 @@ public class Messages {
 			return '!' + "General.webRoot" + '!'; //$NON-NLS-1$
 		}
 	}
-	
+
 	public static String urlFromKey(String key) {
 		try {
 			return buildURL(getString(key));
 		} catch (MissingResourceException e) {
-			return '!' + key + '!'; //$NON-NLS-1$
+			return '!' + key + '!';
 		}
 	}
 }

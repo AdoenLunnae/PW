@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="messages.Messages" %>
+<%@ page import="messages.Messages" import="java.util.*"%>
 <jsp:useBean id="profile" class="es.uco.pw.display.beans.ProfileBean" scope="session"/>
 <head>
 	<% request.setCharacterEncoding("utf-8"); %>
@@ -14,8 +14,8 @@
 	<div class="barra-cabecera">
 	    <div class="contenedor-cabecera">
 	        <div class="w-1/4">
-	            <div class="circle-crop ml-6 -mt-5">
-	            	<img src= "<%= "data:image/jpeg;base64, " + profile.getBase64Image() %>" alt="logo" 
+	            <div class="profile-pic-container circle-crop ml-6 -mt-5">
+	            	<img src= "<%= "data:image/jpeg;base64, " + profile.getBase64Image() %>" alt="Imagen de perfil" 
 	            		class="imagen-perfil" onClick="abrirPopUp('overlay-pic', 'popup-pic')"/>
 	            </div>
 	        </div>
@@ -118,7 +118,7 @@
 	    </div>
 	
 	    <!-- Columna central -->
-	    <div class="w-full lg:w-1/2 mb-4">
+	    <div class="lg:w-2/3 mb-4 mt-6">
 	        <!-- Sobre mí -->
 	        <div class="caja">
 	            <div class="titulo-caja">
@@ -182,14 +182,14 @@
 		                    </div>
 		                    <div class="descripcion-elemento">
 			                    Desde <%= experience.getStart() %>
-			                    <% if(experience.getEnd() != null) { %>
-			                    	&nbsp;
-			                    	&nbsp;
-			                    	<b>&#8594;</b>
-			                    	&nbsp;
-			                    	&nbsp;
-			                    	Hasta <%= experience.getEnd() %>
-			                    <% } %>
+		                    	&nbsp;
+		                    	&nbsp;
+		                    	<b>&#8594;</b>
+		                    	&nbsp;
+		                    	&nbsp;
+		                    	Hasta <% out.print((experience.getEnd().after(Calendar.getInstance().getTime())) 
+	                    				? ("hoy")
+	                    				: (experience.getEnd()));  %>
 		                    </div>
 		                </div>
 	            	</div>
@@ -214,15 +214,18 @@
 	                    </div>
 	                </div>
 	                <div class="linea-colaboradores">
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
+	                    <span>
+	                    	<a href="#">
+	                    		<img src=<%= Messages.buildURL("/img/perfil.png") %> alt="avatar" class="imagen-contacto-peq">
+	                    	</a>
+	                    </span>
+	                    &nbsp;
+	                   <span>
+	                    	<a href="#">
+	                    		<img src=<%= Messages.buildURL("/img/perfil.png") %> alt="avatar" class="imagen-contacto-peq">
+	                    	</a>
+	                    </span>
+	                    &nbsp;
 	                </div>
 	            </div>
 	            
@@ -247,9 +250,12 @@
 	                    </div>
 	                </div>
 	                <div class="linea-colaboradores">
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
+	                    <span>
+	                    	<a href="#">
+	                    		<img src=<%= Messages.buildURL("/img/perfil.png") %> alt="avatar" class="imagen-contacto-peq">
+	                    	</a>
+	                    </span>
+	                    &nbsp;
 	                </div>
 	            </div>
 	        </div>
@@ -263,6 +269,6 @@
 	    </div>
 	</div>
 	
-	<jsp:include page=<%= Messages.buildURL( Messages.getString("Pages.footer") ) %>/>
+	<jsp:include page="/include/footer.jsp" />
 	
 </body>

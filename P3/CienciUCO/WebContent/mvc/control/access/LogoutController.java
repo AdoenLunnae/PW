@@ -15,7 +15,7 @@ import messages.Messages;
 @WebServlet(name = "LogoutServlet", urlPatterns = "/logout")
 public class LogoutController extends HttpServlet {
 	static final long serialVersionUID = 1L;
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class LogoutController extends HttpServlet {
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
 		customer = new CustomerBean("", Messages.getString("General.guestRoleName")); //$NON-NLS-1$ //$NON-NLS-2$
 		session.setAttribute("customer", customer); //$NON-NLS-1$
-		
+
 		response.sendRedirect(Messages.urlFromKey("Pages.loginPage")); //$NON-NLS-1$
 		return;
 	}

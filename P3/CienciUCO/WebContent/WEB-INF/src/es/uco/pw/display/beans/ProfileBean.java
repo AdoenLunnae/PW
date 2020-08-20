@@ -5,18 +5,17 @@ import java.util.ArrayList;
 
 public class ProfileBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String mail, name, aboutMe, phone, base64Image, parsedAboutMe;
 	private ArrayList<ExperienceBean> experiences;
 	private ArrayList<ContactInfoBean> allContactInfo;
-	
+
 	public ProfileBean() {
 		super();
 	}
 
 	public ProfileBean(String mail, String name, String aboutMe, String phone, String base64Image, String parsedAboutMe,
-			ArrayList<ExperienceBean> experiences,
-			ArrayList<ContactInfoBean> allContactInfo) {
+			ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> allContactInfo) {
 		super();
 		this.mail = mail;
 		this.name = name;

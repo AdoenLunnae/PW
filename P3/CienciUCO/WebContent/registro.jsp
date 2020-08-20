@@ -50,7 +50,7 @@
 
             <div class="boton-entrar">
                 <input type="submit" value="Registrarte" id="submit-button" disabled="disabled"/>
-                <input type="button" onclick="window.location.href = '<%= messages.Messages.getString("Pages.loginPage") %>'" value="Volver al login"/>
+                <input type="button" onclick="window.location.href = '<%= messages.Messages.urlFromKey("Pages.loginPage") %>'" value="Volver al login"/>
             </div>
             
             <div class="terminos" id="terminosycondiciones-group">
@@ -62,5 +62,5 @@
 	</div>
 </form>
 </div>
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="/include/footer.jsp" %>
 </body>

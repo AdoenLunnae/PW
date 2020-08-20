@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ExperienceBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private int id;
 	private Date start, end;
 	private String nombre, descripcion, lugar;

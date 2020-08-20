@@ -14,15 +14,15 @@ import messages.Messages;
 @WebServlet(name = "AboutMeServlet", urlPatterns = "/editAboutMe")
 public class EditAboutController extends HttpServlet {
 	static final long serialVersionUID = 1L;
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
 		String aboutMe = request.getParameter("value"); //$NON-NLS-1$
 		String mail = request.getParameter("mail"); //$NON-NLS-1$
 		UserDAO.updateAboutMe(mail, aboutMe);
-		
-		response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
+
+		response.sendRedirect(Messages.urlFromKey("General.profile") + mail); //$NON-NLS-1$
 	}
 }

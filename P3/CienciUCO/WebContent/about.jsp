@@ -14,7 +14,7 @@
 
 <!-- Información del perfil -->
 <div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
-    <div class="w-full lg:w-1/4 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
+    <div class="lg:w-1/4 lg:pl-0 pr-6 mr-6 mt-8 mb-4">
         <!-- información de contacto -->
         <div class="caja">
             <div class="titulo-caja">Información de contacto</div>
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Columna central -->
-    <div class="w-full lg:w-1/2 mb-4">
+    <div class="lg:w-1/2 mb-4 mt-6">
         <!-- Sobre mí -->
         <div class="caja">
             <div class="titulo-caja">Quién somos</div>

@@ -14,7 +14,8 @@ public class DAO {
 			// Introducir correctamente el nombre y datos de conexión - Idealmente, estos
 			// datos se
 			// indican en un fichero de propiedades
-			con = DriverManager.getConnection(Messages.getString("DAO.databaseURL"), Messages.getString("DAO.databaseUser"), Messages.getString("DAO.databasePassword")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			con = DriverManager.getConnection(Messages.getString("DAO.databaseURL"), //$NON-NLS-1$
+					Messages.getString("DAO.databaseUser"), Messages.getString("DAO.databasePassword")); //$NON-NLS-1$ //$NON-NLS-2$
 			// Importante capturar
 		} catch (Exception e) {
 			System.out.println(e);

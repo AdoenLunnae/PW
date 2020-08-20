@@ -14,22 +14,22 @@ import messages.Messages;
 @WebServlet(name = "DeleteContactInfoServlet", value = "/deleteContactInfo")
 public class DeleteContactInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public DeleteContactInfoController() {
-        super();
-    }
+
+	public DeleteContactInfoController() {
+		super();
+	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
-		
+
 		String mail = request.getParameter("mail"); //$NON-NLS-1$
 		int id = Integer.valueOf(request.getParameter("id")); //$NON-NLS-1$
-		
+
 		ContactInfoDAO.deleteContactInfo(id);
-		
-		response.sendRedirect(Messages.getString("General.profile") + mail); //$NON-NLS-1$
+
+		response.sendRedirect(Messages.urlFromKey("General.profile") + mail); //$NON-NLS-1$
 	}
 
 }

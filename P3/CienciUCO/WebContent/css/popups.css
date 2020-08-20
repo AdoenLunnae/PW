@@ -53,69 +53,12 @@
     opacity: 0;
 }
 
-
-
-
 .popup h4 {
     font-size: 17px;
     margin-bottom: 10px;
     text-align: justify;
     opacity: 0;
     font-weight: bold;
-}
-
-.popup form .contenedor-inputs {
-    opacity: 0;
-}
-
-.popup form .contenedor-inputs input {
-    width: 100%;
-    margin-bottom: 20px;
-    height: 52px;
-    font-size: 18px;
-    line-height: 52px;
-    text-align: center;
-    border: 1px solid #BBBBBB;
-}
-
-.estilotam2{
-    /*position: inline;*/
-    width: 49%;
-    white-space: nowrap;
-}
-.estilotam3{
-    /*position: inline;*/
-    width: 89%;
-    white-space: nowrap;
-}
-
-
-
-.popup form .contenedor-inputs .py-2 {
-    width: 20%;
-    margin-bottom: 20px;
-    height: 400px;
-    font-size: 18px;
-    line-height: 52px;
-    text-align: center;
-    border: 1px solid #BBBBBB;
-    resize: none;
-    padding-top:.5rem;
-    padding-bottom:.5rem;
-}
-
-
-
-
-.popup form .contenedor-inputs textarea {
-    width: 100%;
-    margin-bottom: 20px;
-    height: 400px;
-    font-size: 18px;
-    line-height: 52px;
-    text-align: center;
-    border: 1px solid #BBBBBB;
-    resize: none;
 }
 
 .contenedor-2 {
@@ -130,21 +73,23 @@
 }
 
 
-.popup form .btn-submit {
+
+
+.popup form .btn-close {
     padding: 0 20px;
     height: 40px;
     line-height: 40px;
     border: none;
-    color: #fff;
-    background: #5E7DE3;
+    color: black;
+    background: #c5cce4;
     border-radius: 3px;
     font-size: 16px;
     cursor: pointer;
     transition: .3s ease all;
 }
 
-.popup form .btn-submit:hover {
-    background: rgba(94,125,227, .9);
+.popup form .btn-close:hover {
+    background: #7888ba;
 }
 
 
