@@ -1,6 +1,7 @@
 package es.uco.pw.data.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,5 +48,25 @@ public class PostDAO extends DAO {
 		}
 
 		return result;
+	}
+
+	public static int createPost(String mail, String title, String content) {
+		int status = 0;
+		try {
+			Connection con = getConnection();
+			String insertQuery = Messages.getString("PostDAO.insertQuery"); //$NON-NLS-1$
+			PreparedStatement insertExp = con.prepareStatement(insertQuery);
+
+			insertExp.setString(1, mail);
+			insertExp.setString(2, title);
+			insertExp.setString(3, content);
+
+			status = insertExp.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+		
 	}
 }

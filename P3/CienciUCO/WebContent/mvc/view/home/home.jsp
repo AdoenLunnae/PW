@@ -26,10 +26,11 @@
 		                ¿Alguna idea?
 		            </div>
 		            <div class="elemento-caja container">
-		            	<form>
+		            	<form action="<%= Messages.buildURL("/createPost") %>" method="post" accept-charset="utf-8">
 		            		<div class="contenedor-inputs">
 		            			<input type="text" name="title" placeholder="Título">
-			            		<textarea rows="3" cols="100" placeholder="Postea algún descubrimiento interesante..." name="post-content"></textarea>
+		            			<input type="hidden" name="mail" value="<%= customer.getMail() %>"> 
+			            		<textarea rows="3" cols="100" placeholder="Publica algún descubrimiento interesante..." name="content"></textarea>
 		            			<button type="submit" class="btn-submit relative move-left">Enviar</button>
 		            		</div>
 		            	</form>
@@ -49,7 +50,7 @@
 	                	<% 	Calendar calendar = Calendar.getInstance(); 
 	                		calendar.setTime(post.getCreated_at());	
 	                	%>
-	                	<%= post.getAuthor() + ", el " + calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + " a las " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) %>
+	                	<%= post.getAuthor() + ", el " + calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)) + " a las " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) %>
 	                </div>
 			    </div>
 		        <div class="elemento-caja">

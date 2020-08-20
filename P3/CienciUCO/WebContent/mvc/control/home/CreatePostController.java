@@ -13,17 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import es.uco.pw.data.dao.ContactInfoDAO;
 import es.uco.pw.data.dao.PostDAO;
 import es.uco.pw.data.dao.UserDAO;
 import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.PostBean;
 import messages.Messages;
 
-@WebServlet("/home")
-public class HomeController extends HttpServlet {
+@WebServlet("/createPost")
+public class CreatePostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HomeController() {
+	public CreatePostController() {
 		super();
 	}
 
@@ -38,26 +39,18 @@ public class HomeController extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher rd = request.getRequestDispatcher(Messages.getString("Pages.home")); //$NON-NLS-1$
-		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
-		ArrayList<PostBean> posts = postsFromDatabaseResult(PostDAO.getRecentPosts(15));
-		session.setAttribute("posts", posts); //$NON-NLS-1$
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
-		
-		if (customer == null)
-			customer = new CustomerBean();
-		
-		if(!customer.getIdRol().equals(Messages.getString("General.guestRoleName")) ) {
-			String base64Image = UserDAO.getImage(customer.getMail()); //$NON-NLS-1$
-			session.setAttribute("image", base64Image); //$NON-NLS-1$
-		}
 
-		rd.include(request, response);
-		return;
+		String mail = request.getParameter("mail"); //$NON-NLS-1$
+		String title = request.getParameter("title"); //$NON-NLS-1$
+		String content = request.getParameter("content"); //$NON-NLS-1$
+
+		PostDAO.createPost(mail, title, content);
+
+		response.sendRedirect(Messages.buildURL("/home")); //$NON-NLS-1$
 	}
 
 }

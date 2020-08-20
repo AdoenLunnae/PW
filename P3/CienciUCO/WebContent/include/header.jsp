@@ -8,8 +8,8 @@
 } %>
 <header>
 	<div class="row">
-	    <div class="logo" onclick="window.location.href='../pages/home.html'">
-	    	<a href='<% out.println(customer.getMail().equals("")?"#":Messages.urlFromKey("General.profile") + customer.getMail()); %>'>
+	    <div class="logo">
+	    	<a href='<%= Messages.buildURL("/home") %>'>
 	    		<img src="<%= Messages.urlFromKey("General.logoPath") %>" alt="Logo No Cargado"></img>
 	    	</a>
 	    </div>
