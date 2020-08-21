@@ -22,6 +22,7 @@ import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ExperienceBean;
 //import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.ProfileBean;
+import es.uco.pw.util.HTMLConverter;
 import messages.Messages;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
@@ -60,51 +61,20 @@ public class ProfileController extends HttpServlet {
 		return result;
 	}
 
-	private String parseToHTML(String original) {
-		StringBuilder builder = new StringBuilder();
-		boolean previousWasASpace = false;
-		for (char c : original.toCharArray()) {
-			if (c == ' ') {
-				if (previousWasASpace) {
-					builder.append("&nbsp;"); //$NON-NLS-1$
-					previousWasASpace = false;
-					continue;
-				}
-				previousWasASpace = true;
-			} else {
-				previousWasASpace = false;
-			}
-			switch (c) {
-			case '<':
-				builder.append("&lt;"); //$NON-NLS-1$
-				break;
-			case '>':
-				builder.append("&gt;"); //$NON-NLS-1$
-				break;
-			case '&':
-				builder.append("&amp;"); //$NON-NLS-1$
-				break;
-			case '"':
-				builder.append("&quot;"); //$NON-NLS-1$
-				break;
-			case '\n':
-				builder.append("<br>"); //$NON-NLS-1$
-				break;
-			// We need Tab support here, because we print StackTraces as HTML
-			case '\t':
-				builder.append("&nbsp; &nbsp; &nbsp;"); //$NON-NLS-1$
-				break;
-			default:
-				if (c < 128) {
-					builder.append(c);
-				} else {
-					builder.append("&#").append((int) c).append(";"); //$NON-NLS-1$ //$NON-NLS-2$
-				}
-			}
-		}
-		return builder.toString();
+	
+	
+	private ProfileBean beanFromData(String mail, ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> contactInfo, Hashtable<String, String> data) {
+		ProfileBean profile = new ProfileBean();
+		profile.setMail(mail);
+		profile.setName(data.get("name")); //$NON-NLS-1$
+		profile.setAboutMe(data.get("aboutme")); //$NON-NLS-1$
+		profile.setPhone(data.get("phone")); //$NON-NLS-1$
+		profile.setExperiences(experiences);
+		profile.setAllContactInfo(contactInfo);
+		profile.setBase64Image(data.get("image")); //$NON-NLS-1$
+		profile.setParsedAboutMe(HTMLConverter.parseToHTML(data.get("aboutme"))); //$NON-NLS-1$
+		return profile;
 	}
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -124,19 +94,7 @@ public class ProfileController extends HttpServlet {
 			rd = request.getRequestDispatcher(Messages.getString("Pages.profileError")); //$NON-NLS-1$
 			session.setAttribute("mail", mail); //$NON-NLS-1$
 		} else {
-			// TODO: Refactor to member function
-			Hashtable<String, String> userData = UserDAO.queryByMail(mail);
-			ArrayList<ExperienceBean> experiences = getExperiences(mail);
-			ArrayList<ContactInfoBean> contactInfo = getContactInfo(mail);
-			ProfileBean profile = new ProfileBean();
-			profile.setMail(mail);
-			profile.setName(userData.get("name")); //$NON-NLS-1$
-			profile.setAboutMe(userData.get("aboutme")); //$NON-NLS-1$
-			profile.setPhone(userData.get("phone")); //$NON-NLS-1$
-			profile.setExperiences(experiences);
-			profile.setAllContactInfo(contactInfo);
-			profile.setBase64Image(userData.get("image")); //$NON-NLS-1$
-			profile.setParsedAboutMe(parseToHTML(userData.get("aboutme"))); //$NON-NLS-1$
+			ProfileBean profile = beanFromData(mail, getExperiences(mail), getContactInfo(mail), UserDAO.queryByMail(mail));
 			session.setAttribute("profile", profile); //$NON-NLS-1$
 			rd = (customer.getMail().equals(mail))
 					? request.getRequestDispatcher(Messages.getString("Pages.ownProfile")) //$NON-NLS-1$

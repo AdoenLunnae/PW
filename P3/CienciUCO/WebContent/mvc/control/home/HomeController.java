@@ -17,6 +17,7 @@ import es.uco.pw.data.dao.PostDAO;
 import es.uco.pw.data.dao.UserDAO;
 import es.uco.pw.display.beans.CustomerBean;
 import es.uco.pw.display.beans.PostBean;
+import es.uco.pw.util.HTMLConverter;
 import messages.Messages;
 
 @WebServlet("/home")
@@ -31,7 +32,7 @@ public class HomeController extends HttpServlet {
 		ArrayList<PostBean> posts = new ArrayList<PostBean>();
 		for (Hashtable<String, String> row : databaseResult) {
 			String author = UserDAO.getName(row.get("user_email"));
-			posts.add(new PostBean(row.get("title"), row.get("user_email"), author, row.get("content"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			posts.add(new PostBean(row.get("title"), row.get("user_email"), author, HTMLConverter.parseToHTML(row.get("content")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					Timestamp.valueOf(row.get("created_at")))); //$NON-NLS-1$
 		}
 		return posts;
