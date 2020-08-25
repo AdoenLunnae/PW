@@ -9,13 +9,14 @@ public class ProfileBean implements Serializable {
 	private String mail, name, aboutMe, phone, base64Image, parsedAboutMe;
 	private ArrayList<ExperienceBean> experiences;
 	private ArrayList<ContactInfoBean> allContactInfo;
-
+	private ArrayList<PostBean> posts;
+	
 	public ProfileBean() {
 		super();
 	}
 
 	public ProfileBean(String mail, String name, String aboutMe, String phone, String base64Image, String parsedAboutMe,
-			ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> allContactInfo) {
+			ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> allContactInfo, ArrayList<PostBean> posts) {
 		super();
 		this.mail = mail;
 		this.name = name;
@@ -25,6 +26,7 @@ public class ProfileBean implements Serializable {
 		this.parsedAboutMe = parsedAboutMe;
 		this.experiences = experiences;
 		this.allContactInfo = allContactInfo;
+		this.posts = posts;
 	}
 
 	public ArrayList<ExperienceBean> getExperiences() {
@@ -89,6 +91,14 @@ public class ProfileBean implements Serializable {
 
 	public void setAllContactInfo(ArrayList<ContactInfoBean> allContactInfo) {
 		this.allContactInfo = allContactInfo;
+	}
+
+	public ArrayList<PostBean> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(ArrayList<PostBean> posts) {
+		this.posts = posts;
 	}
 
 }

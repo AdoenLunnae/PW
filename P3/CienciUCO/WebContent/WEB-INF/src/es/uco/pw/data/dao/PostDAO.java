@@ -69,4 +69,30 @@ public class PostDAO extends DAO {
 		return status;
 		
 	}
+	
+	public static ArrayList<Hashtable<String, String>> getPostsByUser(String mail) {
+		ArrayList<Hashtable<String, String>> result = new ArrayList<Hashtable<String, String>>();
+		Hashtable<String, String> current = new Hashtable<String, String>();
+		Statement stmt = null;
+		Connection con = null;
+		ResultSet rs;
+
+		try {
+			con = getConnection();
+			stmt = con.createStatement();
+			String query = Messages.getString("PostDAO.getByUserQuery", mail); //$NON-NLS-1$
+			rs = stmt.executeQuery(query);
+			while (rs != null && rs.next()) {
+				current = hashtableFromResultSet(rs);
+				result.add(current);
+			}
+			if (stmt != null)
+				stmt.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 }

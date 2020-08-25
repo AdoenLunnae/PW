@@ -31,8 +31,8 @@
 	            %>
             </div>
 	        <div class="double-col-3 search-container">
-	            <form action="../pages/resultados.html" style="display: flex">
-	                <input type="text" placeholder="Buscar" name="search">
+	            <form action="<%= Messages.buildURL("/search") %>" style="display: flex">
+	                <input type="text" placeholder="Buscar" name="mail">
 	                <button type="submit">
 	                	<div class="rotate">
 	                		&#9906;

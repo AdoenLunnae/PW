@@ -2,6 +2,7 @@ package control.profile;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -14,14 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import es.uco.pw.data.dao.ContactInfoDAO;
-import es.uco.pw.data.dao.ExperienceDAO;
-import es.uco.pw.data.dao.UserDAO;
-import es.uco.pw.display.beans.ContactInfoBean;
-import es.uco.pw.display.beans.CustomerBean;
-import es.uco.pw.display.beans.ExperienceBean;
-//import es.uco.pw.display.beans.CustomerBean;
-import es.uco.pw.display.beans.ProfileBean;
+import es.uco.pw.data.dao.*;
+import es.uco.pw.display.beans.*;
 import es.uco.pw.util.HTMLConverter;
 import messages.Messages;
 
@@ -60,16 +55,28 @@ public class ProfileController extends HttpServlet {
 		}
 		return result;
 	}
+	
+	private ArrayList<PostBean> getPosts(String userEmail) {
+		ArrayList<PostBean> posts = new ArrayList<PostBean>();
+		ArrayList<Hashtable<String, String>> databaseResult = PostDAO.getPostsByUser(userEmail);
+		for (Hashtable<String, String> row : databaseResult) {
+			String author = UserDAO.getName(row.get("user_email")); //$NON-NLS-1$
+			posts.add(new PostBean(row.get("title"), row.get("user_email"), author, HTMLConverter.parseToHTML(row.get("content")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Timestamp.valueOf(row.get("created_at")))); //$NON-NLS-1$
+		}
+		return posts;
+	}
 
 	
 	
-	private ProfileBean beanFromData(String mail, ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> contactInfo, Hashtable<String, String> data) {
+	private ProfileBean beanFromData(String mail, ArrayList<ExperienceBean> experiences, ArrayList<ContactInfoBean> contactInfo, ArrayList<PostBean> posts, Hashtable<String, String> data) {
 		ProfileBean profile = new ProfileBean();
 		profile.setMail(mail);
 		profile.setName(data.get("name")); //$NON-NLS-1$
 		profile.setAboutMe(data.get("aboutme")); //$NON-NLS-1$
 		profile.setPhone(data.get("phone")); //$NON-NLS-1$
 		profile.setExperiences(experiences);
+		profile.setPosts(posts);
 		profile.setAllContactInfo(contactInfo);
 		profile.setBase64Image(data.get("image")); //$NON-NLS-1$
 		profile.setParsedAboutMe(HTMLConverter.parseToHTML(data.get("aboutme"))); //$NON-NLS-1$
@@ -94,7 +101,7 @@ public class ProfileController extends HttpServlet {
 			rd = request.getRequestDispatcher(Messages.getString("Pages.profileError")); //$NON-NLS-1$
 			session.setAttribute("mail", mail); //$NON-NLS-1$
 		} else {
-			ProfileBean profile = beanFromData(mail, getExperiences(mail), getContactInfo(mail), UserDAO.queryByMail(mail));
+			ProfileBean profile = beanFromData(mail, getExperiences(mail), getContactInfo(mail), getPosts(mail), UserDAO.queryByMail(mail));
 			session.setAttribute("profile", profile); //$NON-NLS-1$
 			rd = (customer.getMail().equals(mail))
 					? request.getRequestDispatcher(Messages.getString("Pages.ownProfile")) //$NON-NLS-1$

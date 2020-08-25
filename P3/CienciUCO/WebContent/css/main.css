@@ -518,7 +518,7 @@ a:hover {
 	font-size: 1.125rem;
 }
 
-.titulo-caja > .subtitulo {
+.subtitulo {
 	font-weight: 600;
 	font-size: .75rem;
 	color: gray;

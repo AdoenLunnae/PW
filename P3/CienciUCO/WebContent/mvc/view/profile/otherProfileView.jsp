@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="es.uco.pw.display.beans.PostBean"%>
 <%@ page import="messages.Messages" import="java.util.*"%>
 <jsp:useBean id="profile" class="es.uco.pw.display.beans.ProfileBean" scope="session"/>
 <head>
@@ -201,33 +201,26 @@
 	            	ARTÍCULOS PUBLICADOS
 	            </div>
 	            <!-- Elemento artículo -->
-	            <div>
+	            <% for(PostBean post : profile.getPosts()) { %>
 	                <div class="elemento-caja">
 	                    <div class="informacion-contacto">
 	                        <div class="flex justify-between">
-	                            <div class="nombre-elemento">Título del artículo</div>
+	                            <div class="nombre-elemento">
+	                            	<%= post.getTitle() %>
+	                            </div>
 	                        </div>
-	                        <div class="descripcion-elemento">
-	                        	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-	                            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	                        <div class="subtitulo">
+	                        	<% 	Calendar calendar = Calendar.getInstance(); 
+		                			calendar.setTime(post.getCreated_at());	
+			                	%>
+			                	<%= post.getAuthor() + ", el " + calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)) + " a las " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) %>
+	                        </div>
+	                        <div class="descripcion-elemento ">
+	                        	<%= post.getContent() %>
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="linea-colaboradores">
-	                    <span>
-	                    	<a href="#">
-	                    		<img src=<%= Messages.buildURL("/img/perfil.png") %> alt="avatar" class="imagen-contacto-peq">
-	                    	</a>
-	                    </span>
-	                    &nbsp;
-	                   <span>
-	                    	<a href="#">
-	                    		<img src=<%= Messages.buildURL("/img/perfil.png") %> alt="avatar" class="imagen-contacto-peq">
-	                    	</a>
-	                    </span>
-	                    &nbsp;
-	                </div>
-	            </div>
+	           	<% } %>
 	            
 	        </div>
 	

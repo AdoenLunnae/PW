@@ -1,4 +1,4 @@
-<%@page import="messages.Messages" import="java.util.*"%>
+<%@page import="messages.Messages" import="java.util.*" import="es.uco.pw.display.beans.PostBean"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -232,67 +232,47 @@
 	        <!-- Artículos  -->
 	        <div class="caja">
 	            <div class="titulo-caja">ARTÍCULOS PUBLICADOS</div>
-	            <!-- Elemento artículo -->
-	            <div>
+	            <%--  Elemento artículo 
+	            for(PostBean post : posts) { %>
+				<div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
+				    <div class="caja container">
+					    <div class="titulo-caja">
+					    	<%= post.getTitle() %>
+			                <div class="subtitulo">
+			                	<% 	Calendar calendar = Calendar.getInstance(); 
+			                		calendar.setTime(post.getCreated_at());	
+			                	%>
+			                	<%= post.getAuthor() + ", el " + calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)) + " a las " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) %>
+			                </div>
+					    </div>
+				        <div class="elemento-caja">
+				            <%= post.getContent() %>
+				        </div>
+				    </div>
+				</div>
+				<% } %>
+	            
+	            --%>
+	            <% for(PostBean post : profile.getPosts()) { %>
 	                <div class="elemento-caja">
 	                    <div class="informacion-contacto">
 	                        <div class="flex justify-between">
-	                            <div class="nombre-elemento">Título del artículo</div>
-	                            <div>
-	                            	<a href="#" class="enlace-pu" onclick="abrirPopUp('overlay12', 'popup12')">
-	                            		<img class="icon-button" alt="Editar" src=<%= Messages.urlFromKey("General.editIcon")%> >
-	                            	</a>
+	                            <div class="nombre-elemento">
+	                            	<%= post.getTitle() %>
 	                            </div>
 	                        </div>
-	                        <div class="descripcion-elemento">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-	                            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	                        <div class="subtitulo">
+	                        	<% 	Calendar calendar = Calendar.getInstance(); 
+		                			calendar.setTime(post.getCreated_at());	
+			                	%>
+			                	<%= post.getAuthor() + ", el " + calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)) + " a las " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) %>
+	                        </div>
+	                        <div class="descripcion-elemento ">
+	                        	<%= post.getContent() %>
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="linea-colaboradores">
-	                    <span>
-	                    	<a href="#">
-	                    		<img src="<%= Messages.buildURL("/img/perfil.png") %>" alt="avatar" class="imagen-contacto-peq">
-	                    	</a>
-	                    </span>
-	                    &nbsp;
-	                    <span>
-	                    	<a href="#">
-	                    		<img src="<%= Messages.buildURL("/img/perfil.png") %>" alt="avatar" class="imagen-contacto-peq">
-	                    	</a>
-	                    </span>
-	                    &nbsp;
-	                </div>
-	            </div>
-	            <!-- Elemento artículo -->
-	            <div>
-	                <div class="elemento-caja">
-	                    <div class="informacion-contacto">
-	                        <div class="flex justify-between">
-	                            <div class="nombre-elemento">Título del artículo</div>
-	                            <div>
-	                            	<a href="#" class="enlace-pu" onclick="abrirPopUp('overlay12', 'popup12')">
-	                                    <img class="icon-button" alt="Editar" src=<%= Messages.urlFromKey("General.editIcon")%> >
-	                                </a>
-	                            </div>
-	                        </div>
-	                        <div class="descripcion-elemento">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-	                            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="linea-colaboradores">
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
-	                    <span><a href="#"><img src=<%= Messages.buildURL("/img/perfil.png") %>
-	                                           alt="avatar"
-	                                           class="imagen-contacto-peq"></a></span> &nbsp;
-	                </div>
-	            </div>
+	           	<% } %>
 	            <!-- Añadir artículo -->
 	            <div class="accion-caja">
 	            	<a href="#" class="enlace-pu" onclick="abrirPopUp('overlay10', 'popup10')">
