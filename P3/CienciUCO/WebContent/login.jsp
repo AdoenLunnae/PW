@@ -23,15 +23,20 @@
                </div>
 			<div class="boton-entrar" id="boton1">
 				<input type="submit" value="Entrar">
-				<input type="button" onclick="window.location.href = '<%= Messages.urlFromKey("Pages.registerPage") %>'"
-					value="Registrar">
+				<input type="button" onclick="window.location.href = '<%= Messages.urlFromKey("Pages.registerPage") %>'" value="Registrar">
 			</div>
 		
 		</form>
+		<% 	Boolean failed = (Boolean)request.getAttribute("failedLogin");
+			if(failed != null && failed) { %>
+		    <div class="login-error-message">
+		    	El correo o contraseña introducidos son inválidos.
+		    </div>
+	    <% } %>
 		<div class="forgot">
                <a href="#">¿Recordar contraseña?</a>
            </div>   
 	</div>
 	</div>
-<%@ include file="/include/footer.jsp" %>
+	<%@ include file="/include/footer.jsp" %>
 </body>

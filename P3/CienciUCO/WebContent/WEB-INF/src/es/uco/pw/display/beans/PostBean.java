@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class PostBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	int id;
 	String title;
 	String creatorMail;
 	String author;
@@ -13,6 +14,7 @@ public class PostBean implements Serializable {
 	Timestamp created_at;
 
 	public PostBean() {
+		id = -1;
 		title = ""; //$NON-NLS-1$
 		creatorMail = ""; //$NON-NLS-1$
 		content = ""; //$NON-NLS-1$
@@ -21,13 +23,22 @@ public class PostBean implements Serializable {
 		created_at = new Timestamp(0L);
 	}
 
-	public PostBean(String title, String creatorMail, String author, String content, Timestamp created_at) {
+	public PostBean(int id, String title, String creatorMail, String author, String content, Timestamp created_at) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.creatorMail = creatorMail;
 		this.content = content;
 		this.created_at = created_at;
 		this.author = author;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

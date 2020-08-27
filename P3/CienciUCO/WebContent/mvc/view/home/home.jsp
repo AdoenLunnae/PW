@@ -6,13 +6,14 @@
 		<jsp:include page="/include/common-head.jsp">
 			<jsp:param name="title" value="Página Principal"/>
 	   	</jsp:include>
+	   	<script type="text/javascript" src="<%= Messages.buildURL("/js/editUtilities.js")%>"></script>
 	</head>
 
 	<body>
 	
 		<%@ include file="/include/header.jsp" %>
 		
-		<% if( !customer.getIdRol().equals(Messages.getString("General.guestRoleName")) ) { %>
+		<% if( customer.getIdRol().equals(Messages.getString("General.userRoleName"))) { %>
 		<div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
 		    <div class="col-narrow">
 		    	<div class="circle-crop w-auto h-full mt-2 mb-2"> 
@@ -45,7 +46,22 @@
 		<div class="container mx-auto flex flex-row mt-3 text-sm leading-normal">
 		    <div class="caja container">
 			    <div class="titulo-caja">
-			    	<%= post.getTitle() %>
+			    	<div class="flex justify-between">
+			    	<div> <%= post.getTitle() %> </div>
+			    	
+			    	<%	
+			    		Boolean isAdmin = customer.getIdRol().equals(Messages.getString("General.adminRoleName"));
+			    		Boolean isAuthor = customer.getMail().equals(post.getAuthor());
+			    		if( isAdmin || isAuthor ) { 
+			    	%>
+			    		<form action='<%= Messages.buildURL("/deletePost") %>' id='<%="delete-post-" + post.getId() %>' method='post'>
+			    			<input type="hidden" value='<%= post.getId() %>' name="id">
+			    		</form>
+			    		<a href="#" class="boton-borrar" onclick="submitForm('<%="delete-post-" + post.getId() %>')">
+                    		<img class="icon-button delete-button" alt="Borrar" src=<%= Messages.urlFromKey("General.deleteIcon")%> >
+	                    </a>
+			    	<% } %>
+			    	</div>
 	                <div class="subtitulo">
 	                	<% 	Calendar calendar = Calendar.getInstance(); 
 	                		calendar.setTime(post.getCreated_at());	

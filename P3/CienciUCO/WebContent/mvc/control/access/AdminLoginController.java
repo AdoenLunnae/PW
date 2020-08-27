@@ -1,8 +1,6 @@
 package control.access;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,19 +13,13 @@ import es.uco.pw.data.dao.UserDAO;
 import es.uco.pw.display.beans.CustomerBean;
 import messages.Messages;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/loginAttempt")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "AdminLoginServlet", urlPatterns = "/adminLogin")
+public class AdminLoginController extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
 	private Boolean userIsLogged(CustomerBean customer) {
 		return (customer != null && !customer.getIdRol().equals(Messages.getString("General.guestRoleName"))); //$NON-NLS-1$
 	}
-
-	/*
-	 * private Boolean checkEmptyArgs(String nombre, String apellidos, String mail,
-	 * String password, String telefono) throws ServletException, IOException {
-	 * return !(mail.isEmpty() || password.isEmpty()); }
-	 */
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,22 +32,19 @@ public class LoginController extends HttpServlet {
 			// loginErrorPage(request, response);
 			return;
 		}
-
-		String mail = request.getParameter("correo"); //$NON-NLS-1$
+		request.setCharacterEncoding("utf-8");
+		String mail = request.getParameter("mail"); //$NON-NLS-1$
 		String password = request.getParameter("password"); //$NON-NLS-1$
 		request.setAttribute("failedLogin", false); //$NON-NLS-1$
-		try {
-			if (!UserDAO.mailExists(mail) || !UserDAO.checkPass(mail, password)) {
-				request.setAttribute("failedLogin", true); //$NON-NLS-1$
-				RequestDispatcher rd = request.getRequestDispatcher(Messages.getString("Pages.loginPage")); //$NON-NLS-1$
-				rd.include(request, response);
-				return;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		
+		if (!UserDAO.adminMailExists(mail) || !UserDAO.checkAdminPass(mail, password)) {
+			request.setAttribute("failedLogin", true); //$NON-NLS-1$
+			RequestDispatcher rd = request.getRequestDispatcher(Messages.getString("Pages.adminLoginPage")); //$NON-NLS-1$
+			rd.include(request, response);
+			return;
 		}
 		
-		customer = new CustomerBean(mail, Messages.getString("General.userRoleName")); //$NON-NLS-1$
+		customer = new CustomerBean(mail, Messages.getString("General.adminRoleName")); //$NON-NLS-1$
 		session.setAttribute("customer", customer); //$NON-NLS-1$
 		response.sendRedirect(Messages.buildURL("/home")); //$NON-NLS-1$
 		return;

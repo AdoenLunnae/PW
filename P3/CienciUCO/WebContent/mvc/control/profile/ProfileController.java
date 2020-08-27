@@ -61,8 +61,13 @@ public class ProfileController extends HttpServlet {
 		ArrayList<Hashtable<String, String>> databaseResult = PostDAO.getPostsByUser(userEmail);
 		for (Hashtable<String, String> row : databaseResult) {
 			String author = UserDAO.getName(row.get("user_email")); //$NON-NLS-1$
-			posts.add(new PostBean(row.get("title"), row.get("user_email"), author, HTMLConverter.parseToHTML(row.get("content")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					Timestamp.valueOf(row.get("created_at")))); //$NON-NLS-1$
+			posts.add(new PostBean(
+						Integer.valueOf(row.get("id")),					//$NON-NLS-1$ 
+						row.get("title"), 								//$NON-NLS-1$ 
+						row.get("user_email"), 							//$NON-NLS-1$ 
+						author,
+						HTMLConverter.parseToHTML(row.get("content")), 	//$NON-NLS-1$ 
+						Timestamp.valueOf(row.get("created_at")))); 	//$NON-NLS-1$
 		}
 		return posts;
 	}

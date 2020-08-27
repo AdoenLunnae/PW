@@ -262,7 +262,49 @@ public class UserDAO extends DAO {
 		}
 		return status;
 	}
+	
+	public static Boolean adminMailExists(String mail) {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		Boolean retval = false;
+		try {
+			con = getConnection();
+			stmt = con.createStatement();
+			String query = Messages.getString("UserDAO.adminMailExistsQuery", mail); //$NON-NLS-1$
+			rs = stmt.executeQuery(query);
+			retval = rs.next();
+			if (stmt != null)
+				stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return retval;
+	}
+	
+	public static Boolean checkAdminPass(String mail, String pass) {
+		Connection con = getConnection();
+		Statement stmt = null;
 
+		ResultSet rs;
+		String userPass = "";
+
+		try {
+			stmt = con.createStatement();
+			String query = Messages.getString("UserDAO.adminPasswordQuery", mail); //$NON-NLS-1$
+			rs = stmt.executeQuery(query);
+			rs.beforeFirst();
+			rs.next();
+			userPass = rs.getString("password"); //$NON-NLS-1$
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return (pass.equals(userPass));
+	}
+	
 	public static int delete(String mail) {
 		int status = 0;
 		try {

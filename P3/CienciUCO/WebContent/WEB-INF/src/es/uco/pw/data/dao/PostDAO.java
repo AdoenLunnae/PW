@@ -95,4 +95,24 @@ public class PostDAO extends DAO {
 
 		return result;
 	}
+
+	public static int deletePost(int id) {
+		int status = 0;
+
+		PreparedStatement deleteExp = null;
+		try {
+			Connection con = getConnection();
+			String deleteQuery = Messages.getString("PostDAO.deleteQuery"); //$NON-NLS-1$
+			deleteExp = con.prepareStatement(deleteQuery);
+
+			deleteExp.setInt(1, id);
+
+			status = deleteExp.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	
+	}
 }

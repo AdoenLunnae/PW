@@ -31,9 +31,15 @@ public class HomeController extends HttpServlet {
 	private static ArrayList<PostBean> postsFromDatabaseResult(ArrayList<Hashtable<String, String>> databaseResult) {
 		ArrayList<PostBean> posts = new ArrayList<PostBean>();
 		for (Hashtable<String, String> row : databaseResult) {
-			String author = UserDAO.getName(row.get("user_email"));
-			posts.add(new PostBean(row.get("title"), row.get("user_email"), author, HTMLConverter.parseToHTML(row.get("content")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					Timestamp.valueOf(row.get("created_at")))); //$NON-NLS-1$
+			String author = UserDAO.getName(row.get("user_email")); //$NON-NLS-1$
+			posts.add(new PostBean(
+						Integer.valueOf(row.get("id")),					//$NON-NLS-1$
+						row.get("title"),								//$NON-NLS-1$
+						row.get("user_email"),							//$NON-NLS-1$
+						author,
+						HTMLConverter.parseToHTML(row.get("content")), 	//$NON-NLS-1$
+						Timestamp.valueOf(row.get("created_at"))		//$NON-NLS-1$
+					)); 			
 		}
 		return posts;
 	}
@@ -47,7 +53,7 @@ public class HomeController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //$NON-NLS-1$
 		ArrayList<PostBean> posts = postsFromDatabaseResult(PostDAO.getRecentPosts(15));
 		session.setAttribute("posts", posts); //$NON-NLS-1$
-		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
+		CustomerBean customer = (CustomerBean) session.getAttribute("customer"); //$NON-NLS-1$
 		
 		if (customer == null)
 			customer = new CustomerBean();

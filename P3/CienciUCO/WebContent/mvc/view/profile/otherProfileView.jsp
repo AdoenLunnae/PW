@@ -8,6 +8,7 @@
 	</jsp:include>
 	<link rel="stylesheet" href=<%= Messages.buildURL("/css/popups.css") %>>
 	<script type="text/javascript" src=<%= Messages.buildURL("/js/popup.js") %>></script>
+	<script type="text/javascript" src=<%= Messages.buildURL("/js/editUtilities.js") %>></script>
 </head>
 <body>
 	<jsp:include page="/include/header.jsp"/>
@@ -20,8 +21,15 @@
 	            </div>
 	        </div>
 	        <div class="informacion-contacto ml-12">
-	            <div class="nombre-perfil -mt-2 ml-5"><%= profile.getName() %></div>
-	            <!--  <div class="descripcion-elemento">Estudiante de Grado de Ingeniería Informática</div> -->
+	            <div class="nombre-perfil -mt-2 ml-5">
+	            	<%= profile.getName() %>
+		    		<a href="#" class="boton-borrar" onclick="submitForm('delete-profile')">
+	                	<img class="icon-button delete-button relative topleft-7" alt="Borrar" src=<%= Messages.urlFromKey("General.deleteIcon")%> >
+	                </a>
+	            </div>
+				<form action='<%= Messages.buildURL("/deleteUser") %>' id="delete-profile" method='post'>
+			    			<input type="hidden" value='<%= profile.getMail() %>' name="mail">
+	    		</form>
 	        </div>
 	        <!-- <div class="mr-20"><button>Conectar</button></div> -->
 	    </div>

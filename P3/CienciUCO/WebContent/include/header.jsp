@@ -27,10 +27,26 @@
 	    			target = Messages.urlFromKey("Pages.logoutPage");
 	    			text = "Cerrar Sesión";
 	    		}
-	    		out.print("<a href='" + target + "' class=\"button\">"+ text + "</a>");
 	            %>
+	    		<a href='<%= target %>' class="button"> <%= text %>  </a>
             </div>
-	        <div class="double-col-3 search-container">
+            
+            <div class="col-3">
+	    		<% 
+	    		if(customer.getIdRol().equals("Guest")){
+	    			target = Messages.urlFromKey("Pages.registerPage");
+	    			text = "Registrarme";
+	    		}
+	    		else{	    			
+	    			target = Messages.urlFromKey("General.profile") + customer.getMail();
+	    			text = "Mi Perfil";
+	    		}
+	            %>
+	    		<a href='<%= target %>' class="button"> <%= text %> </a>
+	    		
+            </div>
+            
+	        <div class="col-3 search-container">
 	            <form action="<%= Messages.buildURL("/search") %>" style="display: flex">
 	                <input type="text" placeholder="Buscar" name="mail">
 	                <button type="submit">
